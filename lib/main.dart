@@ -1,8 +1,13 @@
 import 'package:ai_weather/core/app_router/app_router.dart';
-import 'package:ai_weather/core/utils/constants.dart';
+import 'package:ai_weather/firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const AIWeather());
 }
 

@@ -1,6 +1,3 @@
-import 'package:ai_weather/core/utils/constants.dart';
-import 'package:ai_weather/core/utils/strings.dart';
-import 'package:ai_weather/core/utils/styles.dart';
 import 'package:ai_weather/features/auth/presentation/widgets/signUp_view_body.dart';
 import 'package:flutter/material.dart';
 

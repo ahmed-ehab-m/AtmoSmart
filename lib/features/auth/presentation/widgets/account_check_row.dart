@@ -7,6 +7,7 @@ class AccountCheckRow extends StatelessWidget {
       {super.key, required this.onPressed, required this.type});
   final void Function() onPressed;
   final String type;
+  @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
