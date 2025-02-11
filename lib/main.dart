@@ -1,7 +1,9 @@
 import 'package:ai_weather/core/app_router/app_router.dart';
+import 'package:ai_weather/features/auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:ai_weather/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,10 +20,6 @@ class AIWeather extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      // theme: ThemeData(
-      //   scaffoldBackgroundColor: kPrimaryColor,
-      //   brightness: Brightness.dark,
-      // ),
       routerConfig: AppRouter.router,
     );
   }

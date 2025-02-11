@@ -1,4 +1,4 @@
-import 'package:ai_weather/features/auth/presentation/widgets/signUp_view_body.dart';
+import 'package:ai_weather/features/auth/presentation/views/widgets/signup_view_body.dart';
 import 'package:flutter/material.dart';
 
 class SignUpView extends StatelessWidget {
