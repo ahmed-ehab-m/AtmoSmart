@@ -4,11 +4,10 @@ import 'package:ai_weather/features/auth/data/data_resources/auth_remote_datasou
 import 'package:ai_weather/features/auth/domain/entities/userEntity.dart';
 import 'package:ai_weather/features/auth/domain/repo_interface/auth_repositry.dart';
 import 'package:dartz/dartz.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
-class AuthRepositoryImpl implements AuthRepositry {
+class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteDatasource authRemoteDataSource;
-  AuthRepositoryImpl({required this.authRemoteDataSource});
+  AuthRepositoryImpl(this.authRemoteDataSource);
   @override
   Future<Either<Failure, UserEntity>> logIn(
       String email, String password) async {

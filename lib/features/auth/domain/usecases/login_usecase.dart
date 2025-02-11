@@ -8,8 +8,8 @@ abstract class LoginUsecase {
 }
 
 class LoginUsecaseImpl implements LoginUsecase {
-  final AuthRepositry authRepository;
-  LoginUsecaseImpl({required this.authRepository});
+  final AuthRepository authRepository;
+  LoginUsecaseImpl(this.authRepository);
   @override
   Future<Either<Failure, UserEntity>> execute(String email, String password) {
     return authRepository.logIn(email, password);

@@ -160,14 +160,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  get:
+  get_it:
     dependency: "direct main"
     description:
-      name: get
-      sha256: e4e7335ede17452b391ed3b2ede016545706c01a02292a6c97619705e7d2a85e
+      name: get_it
+      sha256: f126a3e286b7f5b578bf436d5592968706c4c1de28a228b870ce375d9f743103
       url: "https://pub.dev"
     source: hosted
-    version: "4.6.6"
+    version: "8.0.3"
   go_router:
     dependency: "direct main"
     description:

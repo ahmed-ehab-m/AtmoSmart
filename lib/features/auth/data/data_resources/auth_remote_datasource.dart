@@ -3,7 +3,8 @@ import 'package:ai_weather/features/auth/data/model.dart/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthRemoteDatasource {
-  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final FirebaseAuth firebaseAuth;
+  AuthRemoteDatasource(this.firebaseAuth);
   Future<UserModel> signUp(String email, String password) async {
     try {
       final result = await firebaseAuth.createUserWithEmailAndPassword(

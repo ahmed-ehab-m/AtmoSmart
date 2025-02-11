@@ -8,8 +8,8 @@ abstract class SignUpUseCase {
 }
 
 class SignupUsecaseImpl implements SignUpUseCase {
-  final AuthRepositry authRepository;
-  SignupUsecaseImpl({required this.authRepository});
+  final AuthRepository authRepository;
+  SignupUsecaseImpl(this.authRepository);
   @override
   Future<Either<Failure, UserEntity>> execute(String email, String password) {
     return authRepository.signUp(email, password);
