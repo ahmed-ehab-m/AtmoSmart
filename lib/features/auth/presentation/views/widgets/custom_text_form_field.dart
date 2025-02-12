@@ -1,5 +1,5 @@
 import 'package:ai_weather/core/utils/constants.dart';
-import 'package:ai_weather/core/styles/styles.dart';
+import 'package:ai_weather/core/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -9,12 +9,14 @@ class CustomTextFormField extends StatelessWidget {
     this.obscureText = false,
     this.suffixIcon,
     required this.validator,
+    this.onSaved,
   });
 
   final String hintText;
   final bool obscureText;
   final Widget? suffixIcon;
   final String? Function(String?)? validator;
+  final void Function(String?)? onSaved;
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +25,11 @@ class CustomTextFormField extends StatelessWidget {
       children: [
         Text(
           hintText,
-          style: AppStyles.textStyle18.copyWith(fontWeight: FontWeight.bold),
+          style:
+              AppTextStyles.textStyle18.copyWith(fontWeight: FontWeight.bold),
         ),
         TextFormField(
+          onSaved: onSaved,
           validator: validator,
           obscureText: obscureText,
           decoration: InputDecoration(
@@ -35,9 +39,6 @@ class CustomTextFormField extends StatelessWidget {
             border: buildOutlineInputBorder(),
             enabledBorder: buildOutlineInputBorder(),
             focusedBorder: buildOutlineInputBorder(),
-            // hintText: hintText,
-            // hintStyle: AppStyles.textStyle18.copyWith(color: Colors.white),
-            // labelText: labelText,
           ),
         ),
       ],

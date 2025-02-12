@@ -5,15 +5,30 @@ sealed class AuthState {}
 
 final class AuthInitial extends AuthState {}
 
-final class AuthLoading extends AuthState {}
+final class SignUpLoading extends AuthState {}
 
-final class AuthSuccess extends AuthState {
+final class SignUpSuccess extends AuthState {
   final UserEntity userEntity;
-  AuthSuccess({required this.userEntity});
+  SignUpSuccess({required this.userEntity});
 }
 
-final class AuthFailure extends AuthState {
+final class SignUpFailure extends AuthState {
   final String message;
 
-  AuthFailure({required this.message});
+  SignUpFailure({required this.message});
+}
+/////////////////////////////////
+///final class SignUpInitial extends AuthState {}
+
+final class LoginLoading extends AuthState {}
+
+final class LoginSuccess extends AuthState {
+  final UserEntity userEntity;
+  LoginSuccess({required this.userEntity});
+}
+
+final class LoginFailure extends AuthState {
+  final String message;
+
+  LoginFailure({required this.message});
 }

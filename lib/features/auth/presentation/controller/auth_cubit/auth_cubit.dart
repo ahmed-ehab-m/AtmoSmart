@@ -1,4 +1,4 @@
-import 'package:ai_weather/features/auth/domain/entities/userEntity.dart';
+import 'package:ai_weather/features/auth/domain/entities/user_entity.dart';
 import 'package:ai_weather/features/auth/domain/usecases/login_usecase.dart';
 import 'package:ai_weather/features/auth/domain/usecases/signup_usecase.dart';
 import 'package:bloc/bloc.dart';
@@ -10,28 +10,28 @@ class AuthCubit extends Cubit<AuthState> {
   AuthCubit(this.loginUsecase, this.signUpUseCase) : super(AuthInitial());
   final LoginUsecase loginUsecase;
   final SignUpUseCase signUpUseCase;
-  Future<void> signUp(String email, String password) async {
-    emit(AuthLoading());
-    final result = await signUpUseCase.execute(email, password);
+  Future<void> signUp(String email, String password, String name) async {
+    emit(SignUpLoading());
+    final result = await signUpUseCase.execute(email, password, name);
     result.fold(
       (failure) => emit(
-        AuthFailure(message: failure.message),
+        SignUpFailure(message: failure.message),
       ),
       (user) => emit(
-        AuthSuccess(userEntity: user),
+        SignUpSuccess(userEntity: user),
       ),
     );
   }
 
   Future<void> logIn(String email, String password) async {
-    emit(AuthLoading());
+    emit(LoginLoading());
     final result = await loginUsecase.execute(email, password);
     result.fold(
       (failure) => emit(
-        AuthFailure(message: failure.message),
+        LoginFailure(message: failure.message),
       ),
       (user) => emit(
-        AuthSuccess(userEntity: user),
+        LoginSuccess(userEntity: user),
       ),
     );
   }

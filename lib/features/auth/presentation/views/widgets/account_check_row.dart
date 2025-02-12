@@ -1,4 +1,4 @@
-import 'package:ai_weather/core/styles/styles.dart';
+import 'package:ai_weather/core/styles/text_styles.dart';
 import 'package:ai_weather/core/utils/strings.dart';
 import 'package:flutter/material.dart';
 
@@ -16,13 +16,13 @@ class AccountCheckRow extends StatelessWidget {
             type == AppStrings.signUp
                 ? AppStrings.dontHaveAnAccount
                 : AppStrings.alreadyHaveAnAccount,
-            style: AppStyles.textStyle18),
+            style: AppTextStyles.textStyle18),
         TextButton(
             onPressed: onPressed,
             child: Text(
               type == AppStrings.signUp ? AppStrings.signUp : AppStrings.login,
-              style:
-                  AppStyles.textStyle18.copyWith(fontWeight: FontWeight.bold),
+              style: AppTextStyles.textStyle18
+                  .copyWith(fontWeight: FontWeight.bold),
             )),
       ],
     );

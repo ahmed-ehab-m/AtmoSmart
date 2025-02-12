@@ -1,3 +1,5 @@
+import 'package:ai_weather/core/utils/strings.dart';
+
 abstract class Failure {
   final String message;
 
@@ -5,10 +7,9 @@ abstract class Failure {
 }
 
 class ServerFailure extends Failure {
-  ServerFailure([String message = "A server failure occurred."])
-      : super(message);
+  ServerFailure([super.message = AppStrings.serverFailure]);
 }
 
 class CacheFailure extends Failure {
-  CacheFailure([String message = "A cache failure occurred."]) : super(message);
+  CacheFailure([super.message = AppStrings.cacheFailure]);
 }
