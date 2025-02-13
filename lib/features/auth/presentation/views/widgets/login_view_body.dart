@@ -1,3 +1,4 @@
+import 'package:ai_weather/core/helper/functions/custom_snack_bar.dart';
 import 'package:ai_weather/core/helper/screen_size_helper.dart';
 import 'package:ai_weather/core/utils/constants.dart';
 import 'package:ai_weather/core/utils/strings.dart';
@@ -45,22 +46,13 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               if (state is LoginFailure) {
                 buttonChild = const Text(AppStrings.login);
 
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    backgroundColor: Colors.red,
-                    content: Text(state.message),
-                  ),
-                );
+                showSnackBar(context,
+                    message: state.message, color: Colors.red);
               }
               if (state is LoginSuccess) {
                 buttonChild = const Text(AppStrings.login);
-
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    backgroundColor: Colors.green,
-                    content: Text(AppStrings.loginSuccess),
-                  ),
-                );
+                showSnackBar(context,
+                    message: AppStrings.loginSuccess, color: Colors.green);
               }
             },
             builder: (context, state) {
@@ -70,7 +62,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 children: [
                   Center(
                     child: Text(
-                      AppStrings.login,
+                      AppStrings.welcomeBack,
                       style: AppTextStyles.textStyle38
                           .copyWith(color: kPrimaryColor),
                     ),

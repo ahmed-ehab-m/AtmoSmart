@@ -38,10 +38,10 @@ class AuthRemoteDatasource {
 
   Future<UserModel?> logIn(String email, String password) async {
     try {
-      // final result = await firebaseAuth.signInWithEmailAndPassword(
-      //   email: email,
-      //   password: password,
-      // );
+      await firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       final user = prefsHelper.getUserData();
       return user;
     } on FirebaseAuthException catch (e) {

@@ -25,7 +25,7 @@
 
 # Features
 ## Authentication: User login and registration.
-### for more Details Check lib/docs/auth_feaure.md
+### for more Details Check /docs/auth_feaure.md
 
 
 
