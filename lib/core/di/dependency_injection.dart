@@ -19,29 +19,22 @@ Future<void> setupLocator() async {
 
   await sl.isReady<SharedPreferences>();
 
-  // 2. تسجيل SharedPrefsHelper
   sl.registerLazySingleton<CacheHelper>(() => CacheHelper(sl()));
 
-  // 3. تسجيل FirebaseAuth
   sl.registerLazySingleton(() => FirebaseAuth.instance);
 
-  // 4. تسجيل AuthRemoteDatasource مع حقن الـ SharedPrefsHelper
   sl.registerLazySingleton<AuthRemoteDatasource>(
-    () => AuthRemoteDatasource(
-        sl(), sl()), // sl() هنا تشير إلى FirebaseAuth و SharedPrefsHelper
+    () => AuthRemoteDatasource(sl(), sl()),
   );
 
-  /// 5️⃣ AuthRepository
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(
       sl(),
-    ), // sl() هنا تشير إلى الـ DataSources
+    ),
   );
 
-  /// 6️⃣ Use Cases
   sl.registerLazySingleton<LoginUsecase>(() => LoginUsecaseImpl(sl()));
   sl.registerLazySingleton<SignUpUseCase>(() => SignupUsecaseImpl(sl()));
 
-  /// 7️⃣ AuthCubit
   sl.registerLazySingleton<AuthCubit>(() => AuthCubit(sl(), sl()));
 }
