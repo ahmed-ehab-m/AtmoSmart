@@ -1,4 +1,6 @@
 # ai_weather
+# AuthFeature Demo
+https://github.com/user-attachments/assets/411a344c-b09c-4c5a-b057-73c268ecd726
 ## Project Structure
 ## This project follows CleanArch (Feature Based) and MVVM (Model-View-ViewModel) architecture.
 
@@ -11,7 +13,9 @@
 ### Responsible for data management, including:
 ### Repositories: Interfaces for data access.
 
-Uploading authFeature (1).mp4…
+
+
+
 
 
 ### Data Sources: implementations for fectching and store data
