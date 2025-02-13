@@ -2,6 +2,7 @@ import 'package:ai_weather/features/auth/domain/entities/user_entity.dart';
 import 'package:ai_weather/features/auth/domain/usecases/login_usecase.dart';
 import 'package:ai_weather/features/auth/domain/usecases/signup_usecase.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 part 'auth_state.dart';
@@ -34,5 +35,14 @@ class AuthCubit extends Cubit<AuthState> {
         LoginSuccess(userEntity: user),
       ),
     );
+  }
+
+////////////Method for password visibility////////////////////////////
+  bool isVisible = true;
+  IconData suffixIcon = Icons.visibility_off;
+  void togglePassword() {
+    isVisible = !isVisible;
+    suffixIcon = isVisible ? Icons.visibility_off : Icons.visibility;
+    emit(TogglePassword());
   }
 }

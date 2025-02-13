@@ -1,6 +1,5 @@
 import 'package:ai_weather/core/error/exceptions.dart';
 import 'package:ai_weather/core/error/failure.dart';
-import 'package:ai_weather/features/auth/data/data_resources/auth_local_datasource.dart';
 import 'package:ai_weather/features/auth/data/data_resources/auth_remote_datasource.dart';
 import 'package:ai_weather/features/auth/domain/entities/user_entity.dart';
 import 'package:ai_weather/features/auth/domain/repo_interface/auth_repositry.dart';
@@ -19,21 +18,26 @@ class AuthRepositoryImpl implements AuthRepository {
       return Right(userModel!.toEntity());
     } on ServerException catch (e) {
       return Left(ServerFailure(e.message));
+    } on CacheException catch (e) {
+      return Left(CacheFailure(e.message));
     } catch (e) {
-      return Left(ServerFailure("Unexpected Error"));
+      return Left(ServerFailure(e.toString()));
     }
   }
 
+  @override
   Future<Either<Failure, UserEntity>> signUp(
       String email, String password, String name) async {
     try {
       final userModel =
           await authRemoteDataSource.signUp(email, password, name);
-      return Right(userModel.toEntity());
+      return Right(userModel!.toEntity());
     } on ServerException catch (e) {
       return Left(ServerFailure(e.message));
+    } on CacheException catch (e) {
+      return Left(CacheFailure(e.message));
     } catch (e) {
-      return Left(ServerFailure("Unexpected Error"));
+      return Left(ServerFailure(e.toString()));
     }
   }
 }

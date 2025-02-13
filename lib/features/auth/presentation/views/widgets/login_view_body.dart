@@ -4,6 +4,7 @@ import 'package:ai_weather/core/utils/strings.dart';
 import 'package:ai_weather/core/styles/text_styles.dart';
 import 'package:ai_weather/core/utils/validation.dart';
 import 'package:ai_weather/features/auth/presentation/controller/auth_cubit/auth_cubit.dart';
+import 'package:ai_weather/features/auth/presentation/views/test_view.dart';
 import 'package:ai_weather/features/auth/presentation/views/widgets/account_check_row.dart';
 import 'package:ai_weather/features/auth/presentation/views/widgets/custom_text_form_field.dart';
 import 'package:ai_weather/features/auth/presentation/views/widgets/submit_button.dart';
@@ -27,6 +28,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
   @override
   Widget build(BuildContext context) {
     final screenSizeHelper = ScreenSizeHelper(context);
+
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.symmetric(
@@ -34,77 +36,82 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             horizontal: screenSizeHelper.horizontalPadding),
         child: Form(
           key: formkey,
-          child: Column(
-            spacing: screenSizeHelper.screenHeight * 0.03,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(
-                child: Text(
-                  AppStrings.login,
-                  style:
-                      AppTextStyles.textStyle38.copyWith(color: kPrimaryColor),
-                ),
-              ),
-              CustomTextFormField(
-                onSaved: (value) {
-                  email = value!;
-                },
-                hintText: AppStrings.hintEmail,
-                validator: (value) {
-                  return FormValidation.validateEmail(value!);
-                },
-              ),
-              CustomTextFormField(
-                onSaved: (value) {
-                  password = value!;
-                },
-                validator: (value) {
-                  return FormValidation.validatePassword(value!);
-                },
-                hintText: AppStrings.hintPassword,
-                obscureText: isVisible,
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isVisible = !isVisible;
-                    });
-                  },
-                  icon: Icon(
-                    isVisible == true ? Icons.visibility_off : Icons.visibility,
-                    color: kPrimaryColor,
+          child: BlocConsumer<AuthCubit, AuthState>(
+            listener: (context, state) {
+              if (state is LoginLoading) {
+                buttonChild = const CircularProgressIndicator(
+                  color: Colors.white,
+                );
+              }
+              if (state is LoginFailure) {
+                buttonChild = const Text(AppStrings.login);
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: Colors.red,
+                    content: Text(state.message),
                   ),
-                ),
-              ),
-              BlocConsumer<AuthCubit, AuthState>(
-                listener: (context, state) {
-                  if (state is LoginLoading) {
-                    buttonChild = const CircularProgressIndicator(
-                      color: Colors.white,
-                    );
-                  }
-                  if (state is LoginFailure) {
-                    buttonChild = const Text(AppStrings.login);
+                );
+              }
+              if (state is LoginSuccess) {
+                buttonChild = const Text(AppStrings.login);
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        backgroundColor: Colors.red,
-                        content: Text(state.message),
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    backgroundColor: Colors.green,
+                    content: Text(AppStrings.loginSuccess),
+                  ),
+                );
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return const TestView();
+                    },
+                  ),
+                );
+              }
+            },
+            builder: (context, state) {
+              return Column(
+                spacing: screenSizeHelper.screenHeight * 0.03,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Text(
+                      AppStrings.login,
+                      style: AppTextStyles.textStyle38
+                          .copyWith(color: kPrimaryColor),
+                    ),
+                  ),
+                  CustomTextFormField(
+                    onSaved: (value) {
+                      email = value!;
+                    },
+                    hintText: AppStrings.hintEmail,
+                    validator: (value) {
+                      return FormValidation.validateEmail(value!);
+                    },
+                  ),
+                  CustomTextFormField(
+                    onSaved: (value) {
+                      password = value!;
+                    },
+                    validator: (value) {
+                      return FormValidation.validatePassword(value!);
+                    },
+                    hintText: AppStrings.hintPassword,
+                    obscureText: BlocProvider.of<AuthCubit>(context).isVisible,
+                    suffixIcon: IconButton(
+                      onPressed:
+                          BlocProvider.of<AuthCubit>(context).togglePassword,
+                      icon: Icon(
+                        BlocProvider.of<AuthCubit>(context).suffixIcon,
+                        color: kPrimaryColor,
                       ),
-                    );
-                  }
-                  if (state is LoginSuccess) {
-                    buttonChild = const Text(AppStrings.login);
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        backgroundColor: Colors.green,
-                        content: Text(AppStrings.loginSuccess),
-                      ),
-                    );
-                  }
-                },
-                builder: (context, state) {
-                  return SubmitButton(
+                    ),
+                  ),
+                  SubmitButton(
                       onPressed: () {
                         formkey.currentState!.save();
                         if (formkey.currentState!.validate()) {
@@ -112,16 +119,16 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                               .logIn(email, password);
                         }
                       },
-                      buttonChild: buttonChild);
-                },
-              ),
-              AccountCheckRow(
-                type: AppStrings.signUp,
-                onPressed: () {
-                  GoRouter.of(context).pop();
-                },
-              ),
-            ],
+                      buttonChild: buttonChild),
+                  AccountCheckRow(
+                    type: AppStrings.signUp,
+                    onPressed: () {
+                      GoRouter.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),

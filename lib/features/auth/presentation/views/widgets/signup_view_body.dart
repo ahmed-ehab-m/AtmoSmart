@@ -1,5 +1,5 @@
 import 'package:ai_weather/core/app_router/app_router.dart';
-import 'package:ai_weather/core/helper/custom_snack_bar.dart';
+import 'package:ai_weather/core/helper/functions/custom_snack_bar.dart';
 import 'package:ai_weather/core/helper/screen_size_helper.dart';
 import 'package:ai_weather/core/utils/constants.dart';
 import 'package:ai_weather/core/utils/strings.dart';
@@ -22,7 +22,6 @@ class SignupViewBody extends StatefulWidget {
 }
 
 class _SignupViewBodyState extends State<SignupViewBody> {
-  bool isVisible = true;
   final formkey = GlobalKey<FormState>();
   Widget buttonChild = const Text(AppStrings.signUp);
   String email = '';
@@ -38,77 +37,74 @@ class _SignupViewBodyState extends State<SignupViewBody> {
             horizontal: screenSizeHelper.horizontalPadding),
         child: Form(
           key: formkey,
-          child: Column(
-            spacing: screenSizeHelper.screenHeight * 0.03,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Center(
-                child: Text(
-                  AppStrings.signUp,
-                  style:
-                      AppTextStyles.textStyle38.copyWith(color: kPrimaryColor),
-                ),
-              ),
-              CustomTextFormField(
-                onSaved: (value) {
-                  name = value!;
-                },
-                hintText: AppStrings.hintName,
-                validator: (value) {
-                  return FormValidation.validateName(value!);
-                },
-              ),
-              CustomTextFormField(
-                onSaved: (value) {
-                  email = value!;
-                },
-                hintText: AppStrings.hintEmail,
-                validator: (value) {
-                  return FormValidation.validateEmail(value!);
-                },
-              ),
-              CustomTextFormField(
-                onSaved: (value) {
-                  password = value!;
-                },
-                validator: (value) {
-                  return FormValidation.validatePassword(value!);
-                },
-                hintText: AppStrings.hintPassword,
-                obscureText: isVisible,
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isVisible = !isVisible;
-                    });
-                  },
-                  icon: Icon(
-                    isVisible == true ? Icons.visibility_off : Icons.visibility,
-                    color: kPrimaryColor,
+          child: BlocConsumer<AuthCubit, AuthState>(
+            listener: (context, state) {
+              if (state is SignUpLoading) {
+                buttonChild = const CircularProgressIndicator(
+                  color: Colors.white,
+                );
+              }
+              if (state is SignUpFailure) {
+                buttonChild = const Text(AppStrings.signUp);
+                showSnackBar(context,
+                    message: state.message, color: Colors.red);
+              }
+              if (state is SignUpSuccess) {
+                buttonChild = const Text(AppStrings.signUp);
+                showSnackBar(context,
+                    message: AppStrings.signUpSuccess, color: Colors.green);
+                GoRouter.of(context).push(AppRouter.login);
+              }
+            },
+            builder: (context, state) {
+              return Column(
+                spacing: screenSizeHelper.screenHeight * 0.03,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Center(
+                    child: Text(
+                      AppStrings.signUp,
+                      style: AppTextStyles.textStyle38
+                          .copyWith(color: kPrimaryColor),
+                    ),
                   ),
-                ),
-              ),
-              BlocConsumer<AuthCubit, AuthState>(
-                listener: (context, state) {
-                  if (state is SignUpLoading) {
-                    buttonChild = const CircularProgressIndicator(
-                      color: Colors.white,
-                    );
-                  }
-                  if (state is SignUpFailure) {
-                    buttonChild = const Text(AppStrings.signUp);
-                    showSnackBar(context,
-                        message: state.message, color: Colors.red);
-                  }
-                  if (state is SignUpSuccess) {
-                    buttonChild = const Text(AppStrings.signUp);
-                    showSnackBar(context,
-                        message: AppStrings.signUpSuccess, color: Colors.green);
-                    GoRouter.of(context).push(AppRouter.login);
-                  }
-                },
-                builder: (context, state) {
-                  return SubmitButton(
+                  CustomTextFormField(
+                    onSaved: (value) {
+                      name = value!;
+                    },
+                    hintText: AppStrings.hintName,
+                    validator: (value) {
+                      return FormValidation.validateName(value!);
+                    },
+                  ),
+                  CustomTextFormField(
+                    onSaved: (value) {
+                      email = value!;
+                    },
+                    hintText: AppStrings.hintEmail,
+                    validator: (value) {
+                      return FormValidation.validateEmail(value!);
+                    },
+                  ),
+                  CustomTextFormField(
+                    onSaved: (value) {
+                      password = value!;
+                    },
+                    validator: (value) {
+                      return FormValidation.validatePassword(value!);
+                    },
+                    hintText: AppStrings.hintPassword,
+                    obscureText: BlocProvider.of<AuthCubit>(context).isVisible,
+                    suffixIcon: IconButton(
+                      onPressed:
+                          BlocProvider.of<AuthCubit>(context).togglePassword,
+                      icon: Icon(
+                        BlocProvider.of<AuthCubit>(context).suffixIcon,
+                        color: kPrimaryColor,
+                      ),
+                    ),
+                  ),
+                  SubmitButton(
                       onPressed: () {
                         formkey.currentState!.save();
                         if (formkey.currentState!.validate()) {
@@ -116,16 +112,16 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                               .signUp(email, password, name);
                         }
                       },
-                      buttonChild: buttonChild);
-                },
-              ),
-              AccountCheckRow(
-                type: AppStrings.login,
-                onPressed: () {
-                  GoRouter.of(context).push(AppRouter.login);
-                },
-              ),
-            ],
+                      buttonChild: buttonChild),
+                  AccountCheckRow(
+                    type: AppStrings.login,
+                    onPressed: () {
+                      GoRouter.of(context).push(AppRouter.login);
+                    },
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),

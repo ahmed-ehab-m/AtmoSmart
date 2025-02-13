@@ -18,7 +18,6 @@ final class SignUpFailure extends AuthState {
   SignUpFailure({required this.message});
 }
 /////////////////////////////////
-///final class SignUpInitial extends AuthState {}
 
 final class LoginLoading extends AuthState {}
 
@@ -32,3 +31,6 @@ final class LoginFailure extends AuthState {
 
   LoginFailure({required this.message});
 }
+
+///////////////////////////
+final class TogglePassword extends AuthState {}

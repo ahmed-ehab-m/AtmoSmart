@@ -1,21 +1,19 @@
 import 'package:ai_weather/core/error/exceptions.dart';
-import 'package:ai_weather/core/helper/shared_prefs_helper.dart';
+import 'package:ai_weather/core/helper/cache_helper.dart';
 import 'package:ai_weather/core/utils/strings.dart';
-import 'package:ai_weather/features/auth/data/data_resources/auth_local_datasource.dart';
 import 'package:ai_weather/features/auth/data/model.dart/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthRemoteDatasource {
   final FirebaseAuth firebaseAuth;
   // final AuthLocalDataSourceImpl authLocalDataSource;
-  final SharedPrefsHelper prefsHelper;
+  final CacheHelper prefsHelper;
   AuthRemoteDatasource(
     this.firebaseAuth,
     // this.authLocalDataSource,
     this.prefsHelper,
   );
-  Future<UserModel> signUp(String email, String password, String name) async {
+  Future<UserModel?> signUp(String email, String password, String name) async {
     try {
       final result = await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
@@ -25,23 +23,40 @@ class AuthRemoteDatasource {
       await prefsHelper.cacheUserData(user: user);
       return user;
     } on FirebaseAuthException catch (e) {
-      throw ServerException(e.message ?? AppStrings.firebaseAuthException);
+      if (e.code == AppStrings.weakPassword) {
+        throw ServerException(AppStrings.weakPassword);
+      }
+      if (e.code == AppStrings.emailAlreadyInUse) {
+        throw ServerException(AppStrings.emailAlreadyInUse);
+      } else {
+        throw ServerException(e.toString());
+      }
+    } catch (e) {
+      throw ServerException(e.toString());
     }
   }
 
   Future<UserModel?> logIn(String email, String password) async {
     try {
-      final result = await firebaseAuth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      // final result = await firebaseAuth.signInWithEmailAndPassword(
+      //   email: email,
+      //   password: password,
+      // );
       final user = prefsHelper.getUserData();
-      if (user == null) {
-        throw ServerException('User Data Not Found');
-      }
       return user;
     } on FirebaseAuthException catch (e) {
-      throw ServerException(e.message ?? AppStrings.firebaseAuthException);
+      if (e.code == AppStrings.userNotFound) {
+        throw ServerException(AppStrings.userNotFound);
+      }
+      if (e.code == AppStrings.wrongPassword) {
+        throw ServerException(AppStrings.wrongPassword);
+      } else {
+        print('hhhhhhhhhhhhhhhhhhhh');
+        print(e.toString());
+        throw ServerException(e.toString());
+      }
+    } catch (e) {
+      throw ServerException(e.toString());
     }
   }
 }

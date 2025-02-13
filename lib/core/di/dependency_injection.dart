@@ -1,5 +1,4 @@
-import 'package:ai_weather/core/helper/shared_prefs_helper.dart';
-import 'package:ai_weather/features/auth/data/data_resources/auth_local_datasource.dart';
+import 'package:ai_weather/core/helper/cache_helper.dart';
 import 'package:ai_weather/features/auth/data/data_resources/auth_remote_datasource.dart';
 import 'package:ai_weather/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:ai_weather/features/auth/domain/repo_interface/auth_repositry.dart';
@@ -21,7 +20,7 @@ Future<void> setupLocator() async {
   await sl.isReady<SharedPreferences>();
 
   // 2. تسجيل SharedPrefsHelper
-  sl.registerLazySingleton<SharedPrefsHelper>(() => SharedPrefsHelper(sl()));
+  sl.registerLazySingleton<CacheHelper>(() => CacheHelper(sl()));
 
   // 3. تسجيل FirebaseAuth
   sl.registerLazySingleton(() => FirebaseAuth.instance);

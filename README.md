@@ -1,16 +1,32 @@
 # ai_weather
+## Project Structure
+## This project follows CleanArch (Feature Based) and MVVM (Model-View-ViewModel) architecture.
 
-A new Flutter project.
+# lib
+## Features: Contains App Features
+## core: Contains Common Code and HelperClass .
 
-## Getting Started
+## Feature Structure includeing:
+###  1-Data Layer :
+### Responsible for data management, including:
+### Repositories: Interfaces for data access.
+### Data Sources: implementations for fectching and store data
+### Models: Data models for serialization and deserialization.
 
-This project is a starting point for a Flutter application.
+### 2-Domain Layer
+## Encapsulates business logic, including:
+## Use Cases: application-specific business logic like Authentication.
+## Entities:  objects that define the essential business rules, 
 
-A few resources to get you started if this is your first Flutter project:
+### 3-Presentation Layer
+### Handles UI and state management, including:
+## View Models: State Management to handle User Actions.
+## Views: Flutter widgets for rendering the user interface.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+# Features
+## Authentication: User login and registration.
+### for more Details Check lib/docs/auth_feaure.md
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+

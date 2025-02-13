@@ -1,6 +1,5 @@
 import 'package:ai_weather/core/app_router/app_router.dart';
 import 'package:ai_weather/core/di/dependency_injection.dart';
-import 'package:ai_weather/features/auth/data/data_resources/auth_local_datasource.dart';
 import 'package:ai_weather/features/auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:ai_weather/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
