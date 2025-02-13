@@ -4,7 +4,6 @@ import 'package:ai_weather/core/utils/strings.dart';
 import 'package:ai_weather/core/styles/text_styles.dart';
 import 'package:ai_weather/core/utils/validation.dart';
 import 'package:ai_weather/features/auth/presentation/controller/auth_cubit/auth_cubit.dart';
-import 'package:ai_weather/features/auth/presentation/views/test_view.dart';
 import 'package:ai_weather/features/auth/presentation/views/widgets/account_check_row.dart';
 import 'package:ai_weather/features/auth/presentation/views/widgets/custom_text_form_field.dart';
 import 'package:ai_weather/features/auth/presentation/views/widgets/submit_button.dart';
@@ -60,14 +59,6 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   const SnackBar(
                     backgroundColor: Colors.green,
                     content: Text(AppStrings.loginSuccess),
-                  ),
-                );
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const TestView();
-                    },
                   ),
                 );
               }
