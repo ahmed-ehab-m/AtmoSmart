@@ -1,16 +1,43 @@
 # ai_weather
+# AuthFeature Demo
+https://github.com/user-attachments/assets/411a344c-b09c-4c5a-b057-73c268ecd726
+## Project Structure
+## This project follows CleanArch (Feature Based) and MVVM (Model-View-ViewModel) architecture.
 
-A new Flutter project.
+# lib
+## Features: Contains App Features
+## core: Contains Common Code and HelperClass .
 
-## Getting Started
+## Feature Structure includeing:
+###  1-Data Layer :
+### Responsible for data management, including:
+### Repositories: Interfaces for data access.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+### Data Sources: implementations for fectching and store data
+
+
+
+### Models: Data models for serialization and deserialization.
+
+### 2-Domain Layer
+## Encapsulates business logic, including:
+## Use Cases: application-specific business logic like Authentication.
+## Entities:  objects that define the essential business rules, 
+
+### 3-Presentation Layer
+### Handles UI and state management, including:
+## View Models: State Management to handle User Actions.
+## Views: Flutter widgets for rendering the user interface.
+
+# Features
+## Authentication: User login and registration.
+### for more Details Check /docs/auth_feaure.md
+
+
+
+
