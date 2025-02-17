@@ -32,7 +32,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.symmetric(
-            vertical: screenSizeHelper.verticalPadding,
+            vertical: screenSizeHelper.authVerticalPadding,
             horizontal: screenSizeHelper.horizontalPadding),
         child: Form(
           key: formkey,
