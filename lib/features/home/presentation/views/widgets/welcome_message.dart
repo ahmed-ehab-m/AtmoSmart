@@ -8,12 +8,11 @@ class WelcomeMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text('Hello',
-          style: AppTextStyles.textStyle38.copyWith(color: kPrimaryColor)),
+      Text('Hello', style: AppTextStyles.textStyle38),
       Text(
         userName,
         style: AppTextStyles.textStyle22
-            .copyWith(fontWeight: FontWeight.normal, color: Colors.grey[700]),
+            .copyWith(fontWeight: FontWeight.normal, color: Colors.white),
       )
     ]);
   }

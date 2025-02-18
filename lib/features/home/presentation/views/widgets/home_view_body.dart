@@ -35,7 +35,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
     }
     switch (condition) {
       case 'Sunny':
-        return Colors.orange;
+        return Colors.amber;
       case 'Partly cloudy':
       case 'Cloudy':
       case 'Overcast':
@@ -102,10 +102,10 @@ class _HomeViewBodyState extends State<HomeViewBody> {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            getThemeColor('Partly cloudy'),
-            getThemeColor('Partly cloudy')[300]!,
-            getThemeColor('Partly cloudy')[100]!,
-          ], // الألوان التي تريدها
+            getThemeColor('Thundery outbreaks 4'),
+            getThemeColor('Thundery outbreaks 3564')[300]!,
+            getThemeColor('Thundery outbreaks 11')[100]!,
+          ],
           begin: Alignment.center,
           end: Alignment.bottomCenter,
         ),

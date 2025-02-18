@@ -1,10 +1,18 @@
 import 'package:ai_weather/core/helper/screen_size_helper.dart';
+import 'package:ai_weather/core/utils/constants.dart';
 import 'package:ai_weather/features/home/presentation/views/widgets/forcast_day_item.dart';
 import 'package:flutter/material.dart';
 
-class ForcastDaysList extends StatelessWidget {
+class ForcastDaysList extends StatefulWidget {
   const ForcastDaysList({super.key});
 
+  @override
+  State<ForcastDaysList> createState() => _ForcastDaysListState();
+}
+
+class _ForcastDaysListState extends State<ForcastDaysList> {
+  // Color color = kPrimaryColor.withValues(alpha: 0.05);
+  int isSelected = 0;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -16,8 +24,18 @@ class ForcastDaysList extends StatelessWidget {
             width: 20,
           ),
           scrollDirection: Axis.horizontal,
-          itemCount: 3,
-          itemBuilder: (context, index) => const ForcastDayItem(),
+          itemCount: 4,
+          itemBuilder: (context, index) => InkWell(
+            onTap: () {
+              //
+              isSelected = index;
+              setState(() {});
+            },
+            child: ForcastDayItem(
+                color: isSelected == index
+                    ? Colors.white.withAlpha(100)
+                    : kPrimaryColor.withAlpha(50)),
+          ),
         ),
       ),
     );

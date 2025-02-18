@@ -9,7 +9,7 @@ class TempertureItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(temp, style: AppTextStyles.textStyle38),
+        Text(temp, style: AppTextStyles.textStyle38.copyWith(fontSize: 48)),
         Text(type, style: AppTextStyles.textStyle18),
       ],
     );
