@@ -16,7 +16,7 @@ class _ForcastDaysListState extends State<ForcastDaysList> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: ScreenSizeHelper(context).screenHeight * 0.14,
+      height: ScreenSizeHelper(context).screenHeight * 0.13,
       child: Center(
         child: ListView.separated(
           shrinkWrap: true,
@@ -34,7 +34,7 @@ class _ForcastDaysListState extends State<ForcastDaysList> {
             child: ForcastDayItem(
                 color: isSelected == index
                     ? Colors.white.withAlpha(100)
-                    : kPrimaryColor.withAlpha(50)),
+                    : kPrimaryColor.withAlpha(100)),
           ),
         ),
       ),

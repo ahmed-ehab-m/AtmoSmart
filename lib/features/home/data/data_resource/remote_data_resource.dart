@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 
 class RemoteDataResource {
   final WeatherApiService weatherApiService;
-  RemoteDataResource({required this.weatherApiService});
+  RemoteDataResource(this.weatherApiService);
   final String apiKey = 'b349537498bf45eb92d174825251702';
   final String baseUrl = 'https://api.weatherapi.com/v1/';
   Future<WeatherModel> getCurrentWeather({required String city}) async {

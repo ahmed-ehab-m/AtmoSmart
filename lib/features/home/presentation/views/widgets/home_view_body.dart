@@ -1,11 +1,15 @@
 import 'package:ai_weather/core/di/dependency_injection.dart';
 import 'package:ai_weather/core/helper/cache_helper.dart';
+import 'package:ai_weather/core/helper/functions/custom_snack_bar.dart';
 import 'package:ai_weather/core/helper/screen_size_helper.dart';
+import 'package:ai_weather/features/home/domain/entities/weather_entity.dart';
+import 'package:ai_weather/features/home/presentation/controller/weather_cubit/weather_cubit.dart';
 import 'package:ai_weather/features/home/presentation/views/widgets/forcast_days_list.dart';
 import 'package:ai_weather/features/home/presentation/views/widgets/details_item.dart';
 import 'package:ai_weather/features/home/presentation/views/widgets/temperture_item.dart';
 import 'package:ai_weather/features/home/presentation/views/widgets/welcome_message.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeViewBody extends StatefulWidget {
   const HomeViewBody({super.key});
@@ -16,10 +20,12 @@ class HomeViewBody extends StatefulWidget {
 
 class _HomeViewBodyState extends State<HomeViewBody> {
   String userName = "";
+  WeatherEntity? weather;
   @override
   void initState() {
     super.initState();
     getData();
+    BlocProvider.of<WeatherCubit>(context).getCurrentWeather('Egypt');
   }
 
   Future<void> getData() async {
@@ -98,50 +104,77 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   Widget build(BuildContext context) {
     final screenSizeHelper = ScreenSizeHelper(context);
 
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            getThemeColor('Thundery outbreaks 4'),
-            getThemeColor('Thundery outbreaks 3564')[300]!,
-            getThemeColor('Thundery outbreaks 11')[100]!,
-          ],
-          begin: Alignment.center,
-          end: Alignment.bottomCenter,
-        ),
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: screenSizeHelper.horizontalPadding,
-          vertical: screenSizeHelper.homeVerticalPadding,
-        ),
-        child: Column(
-          spacing: screenSizeHelper.screenHeight * 0.06,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            WelcomeMessage(userName: userName),
-            const ForcastDaysList(),
-            const Center(
-                child: const TempertureItem(
-              temp: '20°C',
-              type: 'Cloudy',
-            )),
-            const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return BlocConsumer<WeatherCubit, WeatherState>(
+      listener: (context, state) {
+        if (state is GetWeatherLoading) {
+          showSnackBar(context,
+              message: 'Loading...', color: Colors.lightGreen);
+        }
+        if (state is GetWeatherFailure) {
+          showSnackBar(context, message: state.message, color: Colors.red);
+        }
+        if (state is GetWeatherSuccess) {
+          weather = state.weatherEntity;
+        }
+      },
+      builder: (context, state) {
+        return Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                getThemeColor('Thundery outbreaks possible'),
+                getThemeColor('Thundery outbreaks possible')[300]!,
+                getThemeColor('Thundery outbreaks possible')[100]!,
+              ],
+              begin: Alignment.center,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: screenSizeHelper.horizontalPadding,
+              vertical: screenSizeHelper.homeVerticalPadding,
+            ),
+            child: Column(
+              spacing: screenSizeHelper.screenHeight * 0.06,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                DetailsItem(
-                  type: 'Humidity',
-                  value: '80%',
+                WelcomeMessage(
+                  userName: userName,
+                  color: getThemeColor('Blowing snow1')[50]!,
                 ),
-                DetailsItem(
-                  type: 'Humidity',
-                  value: '80%',
+                const ForcastDaysList(),
+                Center(
+                    child: TempertureItem(
+                  color: getThemeColor('Blowing snow')[50]!,
+                  temp: weather?.temp.truncate().toString() ?? '',
+                  type: weather?.condition.toString() ?? '',
+                )),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    DetailsItem(
+                      color: getThemeColor('Blowing snow')[50]!,
+                      type: 'Humidity',
+                      value: weather?.humidity ?? 0,
+                    ),
+                    DetailsItem(
+                      color: getThemeColor('Blowing snow')[50]!,
+                      type: 'UV',
+                      value: weather?.uv ?? 0,
+                    ),
+                    DetailsItem(
+                      color: getThemeColor('Blowing snow')[50]!,
+                      type: 'Rain',
+                      value: weather?.rain ?? 0,
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
