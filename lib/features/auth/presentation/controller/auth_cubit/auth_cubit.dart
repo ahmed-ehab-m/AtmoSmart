@@ -3,7 +3,6 @@ import 'package:ai_weather/features/auth/domain/usecases/login_usecase.dart';
 import 'package:ai_weather/features/auth/domain/usecases/signup_usecase.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 part 'auth_state.dart';
 

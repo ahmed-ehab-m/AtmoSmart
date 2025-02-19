@@ -8,7 +8,7 @@ final class GetWeatherInitial extends WeatherState {}
 final class GetWeatherLoading extends WeatherState {}
 
 final class GetWeatherSuccess extends WeatherState {
-  final WeatherEntity weatherEntity;
+  final dynamic weatherEntity;
   GetWeatherSuccess({required this.weatherEntity});
 }
 

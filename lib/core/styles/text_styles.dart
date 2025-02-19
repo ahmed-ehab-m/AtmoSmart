@@ -2,8 +2,8 @@ import 'package:ai_weather/core/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class AppTextStyles {
-  static TextStyle textStyle48 = const TextStyle(
-    fontSize: 48,
+  static TextStyle textStyle58 = const TextStyle(
+    fontSize: 58,
     fontWeight: FontWeight.bold,
   );
   static TextStyle textStyle38 = const TextStyle(
@@ -19,3 +19,5 @@ class AppTextStyles {
     fontWeight: FontWeight.bold,
   );
 }
+
+/*************  ✨ Codeium Command 🌟  *************/

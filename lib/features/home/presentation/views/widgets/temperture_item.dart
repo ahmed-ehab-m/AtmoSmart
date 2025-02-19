@@ -17,7 +17,7 @@ class TempertureItem extends StatelessWidget {
       children: [
         Text(
           temp,
-          style: AppTextStyles.textStyle48.copyWith(color: color),
+          style: AppTextStyles.textStyle58.copyWith(color: color),
         ),
         Text(
           type,

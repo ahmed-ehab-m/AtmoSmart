@@ -4,14 +4,19 @@ import 'package:ai_weather/features/home/presentation/views/widgets/forcast_day_
 import 'package:flutter/material.dart';
 
 class ForcastDaysList extends StatefulWidget {
-  const ForcastDaysList({super.key});
-
+  const ForcastDaysList(
+      {super.key,
+      required this.dayName,
+      required this.onTap,
+      required this.date});
+  final String dayName;
+  final String date;
+  final void Function()? onTap;
   @override
   State<ForcastDaysList> createState() => _ForcastDaysListState();
 }
 
 class _ForcastDaysListState extends State<ForcastDaysList> {
-  // Color color = kPrimaryColor.withValues(alpha: 0.05);
   int isSelected = 0;
   @override
   Widget build(BuildContext context) {
@@ -27,11 +32,13 @@ class _ForcastDaysListState extends State<ForcastDaysList> {
           itemCount: 4,
           itemBuilder: (context, index) => InkWell(
             onTap: () {
-              //
+              widget.onTap;
               isSelected = index;
               setState(() {});
             },
             child: ForcastDayItem(
+                date: widget.date,
+                dayName: widget.dayName,
                 color: isSelected == index
                     ? Colors.white.withAlpha(100)
                     : kPrimaryColor.withAlpha(100)),

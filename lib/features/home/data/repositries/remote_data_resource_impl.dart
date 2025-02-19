@@ -1,8 +1,10 @@
 import 'package:ai_weather/core/error/exceptions.dart';
 import 'package:ai_weather/core/error/failure.dart';
 import 'package:ai_weather/features/home/data/data_resource/remote_data_resource.dart';
-import 'package:ai_weather/features/home/data/models/weather_model.dart';
-import 'package:ai_weather/features/home/domain/entities/weather_entity.dart';
+import 'package:ai_weather/features/home/data/models/current_weather_model.dart';
+import 'package:ai_weather/features/home/data/models/forecast_weather_model.dart';
+import 'package:ai_weather/features/home/domain/entities/current_weather_entity.dart';
+import 'package:ai_weather/features/home/domain/entities/forecast_weather_entity.dart';
 import 'package:ai_weather/features/home/domain/repo_interface/weather_repositry.dart';
 import 'package:dartz/dartz.dart';
 
@@ -10,10 +12,10 @@ class WeatherRepositryImpl implements WeatherRepositry {
   final RemoteDataResource remoteDataResource;
   WeatherRepositryImpl(this.remoteDataResource);
   @override
-  Future<Either<Failure, WeatherEntity>> getCurrentWeather(
+  Future<Either<Failure, CurrentWeatherEntity>> getCurrentWeather(
       {required String city}) async {
     try {
-      final WeatherModel weatherModel =
+      final CurrentWeatherModel weatherModel =
           await remoteDataResource.getCurrentWeather(city: city);
       return Right(weatherModel.toEntity());
     } on ServerException catch (e) {
@@ -22,10 +24,10 @@ class WeatherRepositryImpl implements WeatherRepositry {
   }
 
   @override
-  Future<Either<Failure, WeatherEntity>> getForecastWeather(
+  Future<Either<Failure, ForecastWeatherEntity>> getForecastWeather(
       {required String city}) async {
     try {
-      final WeatherModel weatherModel =
+      final ForecastWeatherModel weatherModel =
           await remoteDataResource.getForecastWeather(city: city);
       return Right(weatherModel.toEntity());
     } on ServerException catch (e) {

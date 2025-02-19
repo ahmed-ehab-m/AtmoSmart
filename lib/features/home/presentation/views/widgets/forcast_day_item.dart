@@ -4,8 +4,12 @@ class ForcastDayItem extends StatelessWidget {
   const ForcastDayItem({
     super.key,
     required this.color,
+    required this.dayName,
+    required this.date,
   });
   final Color color;
+  final String dayName;
+  final String date;
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +27,13 @@ class ForcastDayItem extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              'Fri',
+              dayName,
               style: TextStyle(
                   fontSize: 30, fontWeight: FontWeight.bold, color: color),
             ),
-            Spacer(),
+            const Spacer(),
             Text(
-              '5',
+              date,
               style: TextStyle(
                   fontSize: 30, fontWeight: FontWeight.bold, color: color),
             )
