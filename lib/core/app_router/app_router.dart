@@ -1,4 +1,5 @@
 import 'package:ai_weather/features/auth/presentation/views/login_view.dart';
+import 'package:ai_weather/features/auth/presentation/views/signUp_view.dart';
 import 'package:ai_weather/features/home/presentation/views/home_view.dart';
 import 'package:go_router/go_router.dart';
 
@@ -9,14 +10,14 @@ class AppRouter {
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) => const HomeView(),
+        builder: (context, state) => const SignUpView(),
       ),
       GoRoute(
         path: login,
         builder: (context, state) => const LoginView(),
       ),
       GoRoute(
-        path: login,
+        path: home,
         builder: (context, state) => const HomeView(),
       ),
     ],

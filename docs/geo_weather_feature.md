@@ -1,23 +1,26 @@
 # GeoWeatherFeature Feature Documentation
 ## overview/
-    this feature manages getting current and forecast weather based on Location
+    this feature manages fetching  current and forecast weather based on the user's location
 
 ## Architecture (CLEAN ARCH and Follows MVVM Pattern)/
 ## core
 ### network
  `/api_service.dart`
-    ApiService class using DIO package to make a request to API Weather for 
-    getting weather data
+    ApiService class using DIO package to make a API requests  for 
+    retrieving  weather data
+### location
+ `/get_location.dart`
+    GetLocation class using Location package to determine user's location 
 ## Lib
 ###  /Data Layer 
 ### Manages Authentication Data
- `RemoteDataSource` → Handles getting weather data from Weather API.
+ `RemoteDataSource` → Handles retrieving weather data from the Weather API
  `RemoteRepositoryImpl` → Implements `WeatherRepository`.
 
 ###  /Domain Layer
 ### Contains BusinessLogic 
- `WeatherRepository` => Abstracrt Repositry Interface
- `GetWeatherCase` → Handles getting weather data from Weather API.
+ `WeatherRepository` => Abstract Repositry Interface
+ `GetWeatherCase` → Handles retrieving weather data from the Weather API
 
 ### /Presentation Layer**
 ### Handels UI , STateManagement

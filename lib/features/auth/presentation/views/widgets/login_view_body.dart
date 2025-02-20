@@ -1,3 +1,4 @@
+import 'package:ai_weather/core/app_router/app_router.dart';
 import 'package:ai_weather/core/helper/functions/custom_snack_bar.dart';
 import 'package:ai_weather/core/helper/screen_size_helper.dart';
 import 'package:ai_weather/core/utils/constants.dart';
@@ -53,6 +54,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 buttonChild = const Text(AppStrings.login);
                 showSnackBar(context,
                     message: AppStrings.loginSuccess, color: Colors.green);
+                GoRouter.of(context).push(AppRouter.home);
               }
             },
             builder: (context, state) {
