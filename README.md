@@ -35,8 +35,12 @@ https://github.com/user-attachments/assets/411a344c-b09c-4c5a-b057-73c268ecd726
 ## Views: Flutter widgets for rendering the user interface.
 
 # Features
-## Authentication: User login and registration.
+## 1-Authentication: User login and registration.
 ### for more Details Check /docs/auth_feaure.md
+
+## 2-get Weather: handels getting current and forecast weather.
+### for more Details Check /docs/geo_weather_feaure.md
+
 
 
 
