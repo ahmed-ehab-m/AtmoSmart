@@ -9,8 +9,7 @@ import 'package:ai_weather/features/auth/presentation/controller/auth_cubit/auth
 import 'package:ai_weather/features/home/data/data_resource/remote_data_resource.dart';
 import 'package:ai_weather/features/home/data/repositries/remote_data_resource_impl.dart';
 import 'package:ai_weather/features/home/domain/repo_interface/weather_repositry.dart';
-import 'package:ai_weather/features/home/domain/use_cases/get_current_weather_usecase.dart';
-import 'package:ai_weather/features/home/domain/use_cases/get_forecase_weather_usecase.dart';
+import 'package:ai_weather/features/home/domain/use_cases/get_weather_usecase.dart';
 import 'package:ai_weather/features/home/presentation/controller/weather_cubit/weather_cubit.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,7 +20,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 final sl = GetIt.instance;
 
 Future<void> setupLocator() async {
-  // 1. تسجيل SharedPreferences
   sl.registerSingletonAsync<SharedPreferences>(
       () async => await SharedPreferences.getInstance());
 
@@ -58,9 +56,10 @@ Future<void> setupLocator() async {
       sl(),
     ),
   );
-  sl.registerLazySingleton<GetCurrentWeatherUseCase>(
-      () => GetCurrentWeatherUseCaseImpl(sl()));
-  sl.registerLazySingleton<GetForecastWeatherUseCase>(
-      () => GetForecastWeatherUseCaseImpl(sl()));
-  sl.registerLazySingleton<WeatherCubit>(() => WeatherCubit(sl(), sl()));
+  sl.registerLazySingleton<GetWeatherUseCase>(
+      () => GetWeatherUseCaseImpl(sl()));
+
+  sl.registerLazySingleton<WeatherCubit>(() => WeatherCubit(
+        sl(),
+      ));
 }

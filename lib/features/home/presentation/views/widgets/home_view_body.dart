@@ -4,8 +4,8 @@ import 'package:ai_weather/core/helper/functions/custom_snack_bar.dart';
 import 'package:ai_weather/core/helper/screen_size_helper.dart';
 import 'package:ai_weather/core/location/get_location.dart';
 import 'package:ai_weather/core/utils/constants.dart';
+import 'package:ai_weather/core/utils/strings.dart';
 import 'package:ai_weather/features/home/domain/entities/current_weather_entity.dart';
-import 'package:ai_weather/features/home/domain/entities/forecast_weather_entity.dart';
 import 'package:ai_weather/features/home/presentation/controller/weather_cubit/weather_cubit.dart';
 import 'package:ai_weather/features/home/presentation/views/widgets/forcast_days_list.dart';
 import 'package:ai_weather/features/home/presentation/views/widgets/details_item.dart';
@@ -23,8 +23,7 @@ class HomeViewBody extends StatefulWidget {
 
 class _HomeViewBodyState extends State<HomeViewBody> {
   String userName = "";
-  CurrentWeatherEntity? weather;
-  ForecastWeatherEntity? forecastWeather;
+  WeatherEntity? weather;
   Color color = Colors.blue;
   @override
   void initState() {
@@ -35,8 +34,9 @@ class _HomeViewBodyState extends State<HomeViewBody> {
 
   Future<void> fetchWeatherData() async {
     String position = await GetLocation.getCurrentLocation();
-    BlocProvider.of<WeatherCubit>(context).getCurrentWeather(position);
-    // BlocProvider.of<WeatherCubit>(context).getForeCastWeather(position);
+    await sl<WeatherCubit>().getCurrentWeather(
+      position,
+    );
   }
 
   Future<void> getData() async {
@@ -49,37 +49,40 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   @override
   Widget build(BuildContext context) {
     final screenSizeHelper = ScreenSizeHelper(context);
-
     return BlocConsumer<WeatherCubit, WeatherState>(
       listener: (context, state) {
-        if (state is GetWeatherLoading) {
-          print('Loadgingggggggggggggggggggggg');
-        }
+        if (state is GetWeatherLoading) {}
         if (state is GetWeatherFailure) {
           showSnackBar(context, message: state.message, color: Colors.red);
-          print('Failure');
         }
         if (state is GetWeatherSuccess) {
           weather = state.weatherEntity;
-          weather!.color = BlocProvider.of<WeatherCubit>(context)
+          color = BlocProvider.of<WeatherCubit>(context)
               .getThemeColor(weather?.condition ?? '');
-          print('Success');
+        }
+        if (state is GetWeatherChanged) {
+          color = BlocProvider.of<WeatherCubit>(context).getThemeColor(
+              sl<WeatherCubit>().selectedDayIndex == 0
+                  ? weather?.condition ?? ''
+                  : weather
+                      ?.forecast[BlocProvider.of<WeatherCubit>(context)
+                          .selectedDayIndex]
+                      .condition);
         }
       },
       builder: (context, state) {
+        final cubit = sl<WeatherCubit>();
         return RefreshIndicator(
           color: Colors.white,
           backgroundColor: kPrimaryColor,
           onRefresh: () async {
             await fetchWeatherData();
+            cubit.changeSelectedDay(0);
           },
           child: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  weather?.color ?? color,
-                  weather?.color?.withAlpha(100) ?? color,
-                ],
+                colors: [color, color.withAlpha(100)],
                 begin: Alignment.center,
                 end: Alignment.bottomCenter,
               ),
@@ -96,44 +99,73 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       WelcomeMessage(
-                        location: weather?.location ?? '_',
+                        location: weather?.location ?? AppStrings.updating,
                         userName: userName,
-                        color: Colors.white.withAlpha(150),
                       ),
                       ForcastDaysList(
-                        onTap: () {},
-                        date: DateTime.now().day.toString(),
-                        dayName: '',
+                        //////////////////////////////////////
+                        onTap: (index) async {
+                          cubit.changeSelectedDay(index);
+                        },
+                        selectedIndex: sl<WeatherCubit>().selectedDayIndex,
+
+                        /////////////////////////////////////
                       ),
                       Center(
-                          child: TempertureItem(
-                        color: Colors.white.withAlpha(150),
-                        temp: weather?.temp.truncate().toString() ?? '_',
-                        type: weather?.condition.toString() ?? '_',
-                      )),
+                        child: TempertureItem(
+                          temp: sl<WeatherCubit>().selectedDayIndex == 0
+                              ? weather?.temp.truncate().toString() ?? '_'
+                              : weather
+                                      ?.forecast[
+                                          sl<WeatherCubit>().selectedDayIndex]
+                                      .averageTemp
+                                      .truncate()
+                                      .toString() ??
+                                  '_',
+                          type: sl<WeatherCubit>().selectedDayIndex == 0
+                              ? weather?.condition ?? '_'
+                              : weather
+                                      ?.forecast[
+                                          sl<WeatherCubit>().selectedDayIndex]
+                                      .condition ??
+                                  '_',
+                        ),
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           DetailsItem(
-                            // color: weather!.color!.withAlpha(50),
-                            color: kPrimaryColor.withAlpha(250),
-
-                            type: 'Humidity',
-                            value: weather?.humidity ?? 0,
+                            type: AppStrings.humidity,
+                            value: sl<WeatherCubit>().selectedDayIndex == 0
+                                ? weather?.humidity.truncate() ?? 0
+                                : weather
+                                        ?.forecast[
+                                            sl<WeatherCubit>().selectedDayIndex]
+                                        .averageHumidity
+                                        .truncate() ??
+                                    0,
                           ),
                           DetailsItem(
-                            // color: weather!.color!.withAlpha(50),
-                            color: kPrimaryColor.withAlpha(250),
-                            type: 'UV',
-                            value: weather?.uv.truncate() ?? 0,
+                            type: AppStrings.uv,
+                            value: sl<WeatherCubit>().selectedDayIndex == 0
+                                ? weather?.uv.truncate() ?? 0
+                                : weather
+                                        ?.forecast[
+                                            sl<WeatherCubit>().selectedDayIndex]
+                                        .uv
+                                        .truncate() ??
+                                    0,
                           ),
                           DetailsItem(
-                            // color: Colors.white.withAlpha(150),
-                            color: kPrimaryColor.withAlpha(250) ?? color,
-
-                            type: 'Rain',
-                            value: weather?.rain.truncate() ?? 0,
-                          ),
+                              type: AppStrings.rain,
+                              value: sl<WeatherCubit>().selectedDayIndex == 0
+                                  ? weather?.rain.truncate() ?? 0
+                                  : weather
+                                          ?.forecast[sl<WeatherCubit>()
+                                              .selectedDayIndex]
+                                          .rainChance
+                                          .truncate() ??
+                                      0),
                         ],
                       ),
                     ],

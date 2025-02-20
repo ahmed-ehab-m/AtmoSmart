@@ -1,39 +1,39 @@
 import 'package:ai_weather/features/home/domain/entities/forecast_weather_entity.dart';
 
 class ForecastWeatherModel {
-  final double temp;
-  final int humidity;
+  final String date;
+  final double averageTemp;
+  final int averageHumidity;
   final String condition;
   final double uv;
-  final int rain;
-  final String date;
+  final int rainChance;
 
   ForecastWeatherModel(
-      {required this.temp,
-      required this.humidity,
+      {required this.date,
+      required this.averageTemp,
+      required this.averageHumidity,
       required this.condition,
       required this.uv,
-      required this.rain,
-      required this.date});
+      required this.rainChance});
 
   factory ForecastWeatherModel.fromJson(Map<String, dynamic> json) =>
       ForecastWeatherModel(
-        temp: json['forecast']['forecastday'][0]['day']['avgtemp_c'].toDouble(),
-        humidity: json['forecast']['forecastday'][0]['day']['avghumidity'],
-        condition: json['forecast']['forecastday'][0]['day']['condition']
-            ['text'],
-        uv: json['forecast']['forecastday'][0]['day']['uv'],
-        rain: json['forecast']['forecastday'][0]['day']['daily_chance_of_rain'],
-        date: json['forecast']['forecastday'][0]['date'],
+        averageTemp: json['day']['avgtemp_c'].toDouble(),
+        averageHumidity: json['day']['avghumidity'],
+        condition: json['day']['condition']['text'],
+        uv: json['day']['uv'],
+        rainChance: json['day']['daily_chance_of_rain'],
+        date: json['date'],
       );
 
-  ForecastWeatherEntity toEntity() {
-    return ForecastWeatherEntity(
-        rain: rain,
-        temp: temp,
-        humidity: humidity,
+  ForecastEntity toEntity() {
+    return ForecastEntity(
+        rainChance: rainChance.toDouble(),
         condition: condition,
         uv: uv,
-        date: date);
+        date: date,
+        day: date,
+        averageTemp: averageTemp,
+        averageHumidity: averageHumidity);
   }
 }

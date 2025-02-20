@@ -1,41 +1,37 @@
+import 'package:ai_weather/core/styles/text_styles.dart';
 import 'package:flutter/material.dart';
 
 class ForcastDayItem extends StatelessWidget {
   const ForcastDayItem({
     super.key,
     required this.color,
-    required this.dayName,
     required this.date,
+    required this.dayName,
   });
   final Color color;
   final String dayName;
   final String date;
-
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 2.6 / 4,
+      aspectRatio: 2.8 / 4,
       child: Container(
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: color,
-          // color: isSelected
-          //     ? Colors.white.withAlpha(100)
-          //     : kPrimaryColor.withValues(alpha: 0.05),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Column(
           children: [
             Text(
+              overflow: TextOverflow.ellipsis,
               dayName,
-              style: TextStyle(
-                  fontSize: 30, fontWeight: FontWeight.bold, color: color),
+              style: AppTextStyles.textStyle30.copyWith(color: color),
             ),
-            const Spacer(),
             Text(
+              overflow: TextOverflow.ellipsis,
               date,
-              style: TextStyle(
-                  fontSize: 30, fontWeight: FontWeight.bold, color: color),
+              style: AppTextStyles.textStyle22.copyWith(color: color),
             )
           ],
         ),

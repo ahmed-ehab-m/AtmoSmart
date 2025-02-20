@@ -1,16 +1,22 @@
-class ForecastWeatherEntity {
-  final double temp;
-  final int humidity;
-  final String condition;
-  final double uv;
-  final int rain;
-  final String date;
+import 'package:flutter/material.dart';
 
-  ForecastWeatherEntity(
-      {required this.temp,
-      required this.humidity,
-      required this.condition,
-      required this.uv,
-      required this.rain,
-      required this.date});
+class ForecastEntity {
+  final String day;
+  final double averageTemp;
+  final int averageHumidity;
+  final double uv;
+  final double rainChance;
+  final String condition;
+  Color? color;
+
+  ForecastEntity({
+    this.color,
+    required this.day,
+    required this.averageTemp,
+    required this.averageHumidity,
+    required this.uv,
+    required this.rainChance,
+    required this.condition,
+    required String date,
+  });
 }

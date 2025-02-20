@@ -16,3 +16,5 @@ final class GetWeatherFailure extends WeatherState {
   final String message;
   GetWeatherFailure({required this.message});
 }
+
+final class GetWeatherChanged extends WeatherState {}

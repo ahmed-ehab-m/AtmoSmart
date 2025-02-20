@@ -1,16 +1,16 @@
-import 'package:flutter/material.dart';
+import 'package:ai_weather/features/home/domain/entities/forecast_weather_entity.dart';
 
-class CurrentWeatherEntity {
+class WeatherEntity {
   final double temp;
   final int humidity;
   final String condition;
   final double uv;
   final double rain;
   final String location;
-  Color? color;
+  final List<ForecastEntity> forecast;
 
-  CurrentWeatherEntity(
-      {this.color,
+  WeatherEntity(
+      {required this.forecast,
       required this.location,
       required this.rain,
       required this.uv,

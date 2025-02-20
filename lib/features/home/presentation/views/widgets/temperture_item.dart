@@ -6,22 +6,19 @@ class TempertureItem extends StatelessWidget {
     super.key,
     required this.temp,
     required this.type,
-    required this.color,
   });
   final String temp;
   final String type;
-  final Color color;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(
-          temp,
-          style: AppTextStyles.textStyle58.copyWith(color: color),
-        ),
+        Text(temp, style: AppTextStyles.textStyle58),
         Text(
           type,
-          style: AppTextStyles.textStyle22.copyWith(color: color),
+          style: AppTextStyles.textStyle22.copyWith(
+            color: Colors.white.withAlpha(150),
+          ),
         ),
       ],
     );

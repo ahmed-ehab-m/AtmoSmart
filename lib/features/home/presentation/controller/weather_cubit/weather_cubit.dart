@@ -1,47 +1,47 @@
 import 'package:ai_weather/features/home/domain/entities/current_weather_entity.dart';
-import 'package:ai_weather/features/home/domain/entities/forecast_weather_entity.dart';
-import 'package:ai_weather/features/home/domain/use_cases/get_current_weather_usecase.dart';
-import 'package:ai_weather/features/home/domain/use_cases/get_forecase_weather_usecase.dart';
-import 'package:bloc/bloc.dart';
+import 'package:ai_weather/features/home/domain/use_cases/get_weather_usecase.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'weather_state.dart';
 
 class WeatherCubit extends Cubit<WeatherState> {
-  WeatherCubit(this.getCurrentWeatherUseCase, this.getForecastWeatherUseCase)
-      : super(GetWeatherInitial());
-  final GetCurrentWeatherUseCase getCurrentWeatherUseCase;
-  final GetForecastWeatherUseCase getForecastWeatherUseCase;
+  WeatherCubit(
+    this.getWeatherUseCase,
+  ) : super(GetWeatherInitial());
+  final GetWeatherUseCase getWeatherUseCase;
 
-  Future<CurrentWeatherEntity?>? getCurrentWeather(String city) async {
+  Future<WeatherEntity?>? getCurrentWeather(
+    String location,
+  ) async {
     emit(GetWeatherLoading());
-    final failureOrWeather = await getCurrentWeatherUseCase(city: city);
+    final failureOrWeather = await getWeatherUseCase(location: location);
     failureOrWeather.fold(
         (failure) => emit(GetWeatherFailure(message: failure.message)),
         (weather) => emit(GetWeatherSuccess(weatherEntity: weather)));
     return null;
   }
 
-  /////////////////////////
-  Future<ForecastWeatherEntity?>? getForeCastWeather(String city) async {
-    emit(GetWeatherLoading());
-    final failureOrWeather = await getForecastWeatherUseCase(city: city);
-    failureOrWeather.fold(
-        (failure) => emit(GetWeatherFailure(message: failure.message)),
-        (weather) => emit(GetWeatherSuccess(weatherEntity: weather)));
-    return null;
+  //////////////////////
+  int selectedDayIndex = 0;
+
+  void changeSelectedDay(int index) {
+    selectedDayIndex = index;
+    emit(GetWeatherChanged());
   }
 
   ///////////////////
   MaterialColor getThemeColor(String? condition) {
     if (condition == null) {
-      return Colors.blue;
+      return Colors.red;
     }
     switch (condition) {
       case 'Sunny':
         return Colors.amber;
       case 'Partly cloudy':
+      case 'Partly Cloudy ':
       case 'Cloudy':
+      case 'cloudy':
       case 'Overcast':
         return Colors.blueGrey;
       case 'Fog':
@@ -49,6 +49,7 @@ class WeatherCubit extends Cubit<WeatherState> {
         return Colors.grey;
       case 'Mist':
       case 'Patchy rain possible':
+      case 'Patchy rain nearby':
       case 'Patchy light drizzle':
       case 'Light drizzle':
       case 'Patchy light rain':
@@ -90,8 +91,9 @@ class WeatherCubit extends Cubit<WeatherState> {
       case 'Light showers of ice pellets':
       case 'Moderate or heavy showers of ice pellets':
         return Colors.cyan;
+
       default:
-        return Colors.blue;
+        return Colors.red;
     }
   }
 }

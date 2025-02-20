@@ -4,14 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class DetailsItem extends StatelessWidget {
-  const DetailsItem(
-      {super.key,
-      required this.type,
-      required this.value,
-      required this.color});
+  const DetailsItem({
+    super.key,
+    required this.type,
+    required this.value,
+  });
   final String type;
   final dynamic value;
-  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +24,17 @@ class DetailsItem extends StatelessWidget {
           percent: value.toDouble() / 100,
           center: Text(
             "$value%",
-            style: AppTextStyles.textStyle22.copyWith(color: color),
+            style: AppTextStyles.textStyle22.copyWith(
+              color: kPrimaryColor.withAlpha(250),
+            ),
           ),
           progressColor: kPrimaryColor,
         ),
-        // Text(value, style: AppTextStyles.textStyle38),
         Text(
           type,
-          style: AppTextStyles.textStyle22.copyWith(color: kPrimaryColor),
+          style: AppTextStyles.textStyle22.copyWith(
+            color: kPrimaryColor.withAlpha(250),
+          ),
         ),
       ],
     );
