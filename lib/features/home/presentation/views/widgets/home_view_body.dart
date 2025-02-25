@@ -30,12 +30,13 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   Map<String, dynamic>? result;
   List<int> features = [];
   String? predictionText;
+  final cubit = sl<WeatherCubit>();
+
   @override
   void initState() {
     super.initState();
     fetchWeatherData();
     getData();
-    // fetchPredictionData();
   }
 
   Future<void> fetchWeatherData() async {
@@ -44,10 +45,6 @@ class _HomeViewBodyState extends State<HomeViewBody> {
       position,
     );
   }
-
-  // Future<void> fetchPredictionData() async {
-  //   await sl<WeatherCubit>().getPrediction(features);
-  // }
 
   Future<void> getData() async {
     final userData = await sl<CacheHelper>().getUserData();
@@ -67,7 +64,9 @@ class _HomeViewBodyState extends State<HomeViewBody> {
         }
         if (state is GetWeatherSuccess) {
           weather = state.weatherEntity;
-          features = WeatherEntity.feature(state.weatherEntity);
+
+          features = ForecastEntity.feature(weather!.forecast[0]);
+          print('Get weather success features are $features');
           sl<WeatherCubit>().getPrediction(features);
           color = BlocProvider.of<WeatherCubit>(context)
               .getThemeColor(weather?.condition ?? '');
@@ -80,9 +79,10 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                       ?.forecast[BlocProvider.of<WeatherCubit>(context)
                           .selectedDayIndex]
                       .condition);
-          // features = ForecastEntity.feature(
-          //     weather!.forecast[sl<WeatherCubit>().selectedDayIndex]);
-          features = [0, 1, 1, 0, 0];
+          features = ForecastEntity.feature(
+              weather!.forecast[sl<WeatherCubit>().selectedDayIndex]);
+          print('Get weather changed features are $features');
+
           sl<WeatherCubit>().getPrediction(features);
         }
         if (state is GetPerdictionLoading) {}
@@ -92,15 +92,14 @@ class _HomeViewBodyState extends State<HomeViewBody> {
         if (state is GetPerdictionSuccess) {
           result = state.result;
           print('Success');
-          print(result?['prediction']);
+          print(result?['prediction'][0]);
 
-          predictionText = result!['prediction'] == 0
+          predictionText = result!['prediction'][0] == 0
               ? "🌧️ The weather is bad, better stay inside!"
               : "☀️ The weather is nice, you can go out!";
         }
       },
       builder: (context, state) {
-        final cubit = sl<WeatherCubit>();
         return RefreshIndicator(
           color: Colors.white,
           backgroundColor: kPrimaryColor,
@@ -197,11 +196,9 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                                       0),
                         ],
                       ),
-                      Text(
-                        predictionText ?? '',
-                        style: AppTextStyles.textStyle18.copyWith(
-                          color: kPrimaryColor.withAlpha(200),
-                        ),
+                      Center(
+                        child: Text(predictionText ?? '',
+                            style: AppTextStyles.textStyle18),
                       ),
                     ],
                   ),

@@ -48,13 +48,14 @@ class WeatherCubit extends Cubit<WeatherState> {
   ///////////////////
   MaterialColor getThemeColor(String? condition) {
     if (condition == null) {
-      return Colors.red;
+      return Colors.blue;
     }
     switch (condition) {
       case 'Sunny':
         return Colors.amber;
       case 'Partly cloudy':
       case 'Partly Cloudy ':
+      case 'Cloudy ':
       case 'Cloudy':
       case 'cloudy':
       case 'Overcast':
@@ -109,7 +110,7 @@ class WeatherCubit extends Cubit<WeatherState> {
         return Colors.cyan;
 
       default:
-        return Colors.red;
+        return Colors.blue;
     }
   }
 }
