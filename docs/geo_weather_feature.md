@@ -14,7 +14,7 @@
 ## Lib
 ###  /Data Layer 
 ### Manages Authentication Data
- `RemoteDataSource` → Handles retrieving and sending weather data to/from the Weather API 
+ `RemoteDataSource` → Handles retrieving and sending weather data to/from the Weather API ,AI Model
  `RemoteRepositoryImpl` → Implements `WeatherRepository`.
 
 ###  /Domain Layer
