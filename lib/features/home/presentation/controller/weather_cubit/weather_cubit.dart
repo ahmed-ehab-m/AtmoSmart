@@ -1,15 +1,30 @@
 import 'package:ai_weather/features/home/domain/entities/current_weather_entity.dart';
+import 'package:ai_weather/features/home/domain/use_cases/get_predictions_usecase.dart';
 import 'package:ai_weather/features/home/domain/use_cases/get_weather_usecase.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 part 'weather_state.dart';
 
 class WeatherCubit extends Cubit<WeatherState> {
   WeatherCubit(
     this.getWeatherUseCase,
+    this.getPredictionUseCase,
   ) : super(GetWeatherInitial());
   final GetWeatherUseCase getWeatherUseCase;
+  final GetPredictionUseCase getPredictionUseCase;
+
+  Future<Map<String, dynamic>?>? getPrediction(
+    List<int> features,
+  ) async {
+    emit(GetPerdictionLoading());
+    final failureOrWeather = await getPredictionUseCase(features: features);
+    print(failureOrWeather);
+    failureOrWeather.fold(
+        (failure) => emit(GetPerdictionFailure(message: failure.message)),
+        (result) => emit(GetPerdictionSuccess(result: result)));
+    return null;
+  }
+  ///////////////////////////////
 
   Future<WeatherEntity?>? getCurrentWeather(
     String location,
@@ -62,6 +77,7 @@ class WeatherCubit extends Cubit<WeatherState> {
       case 'Heavy rain':
       case 'Moderate or heavy rain shower':
       case 'Torrential rain shower':
+      case 'Clear':
         return Colors.blue;
       case 'Thundery outbreaks possible':
       case 'Moderate or heavy rain with thunder':

@@ -9,6 +9,20 @@ import 'package:dartz/dartz.dart';
 class WeatherRepositryImpl implements WeatherRepositry {
   final RemoteDataResource remoteDataResource;
   WeatherRepositryImpl(this.remoteDataResource);
+
+  @override
+  Future<Either<Failure, Map<String, dynamic>>> getPredictions(
+      {required List<int> features}) async {
+    try {
+      Map<String, dynamic> result =
+          await remoteDataResource.getPredictions(features: features);
+      print('impl result is $result');
+      return Right(result);
+    } on ServerException catch (e) {
+      return Left(ServerFailure(e.message));
+    }
+  }
+
   @override
   Future<Either<Failure, WeatherEntity>> getWeather({
     required String location,

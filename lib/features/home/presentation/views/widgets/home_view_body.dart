@@ -3,9 +3,11 @@ import 'package:ai_weather/core/helper/cache_helper.dart';
 import 'package:ai_weather/core/helper/functions/custom_snack_bar.dart';
 import 'package:ai_weather/core/helper/screen_size_helper.dart';
 import 'package:ai_weather/core/location/get_location.dart';
+import 'package:ai_weather/core/styles/text_styles.dart';
 import 'package:ai_weather/core/utils/constants.dart';
 import 'package:ai_weather/core/utils/strings.dart';
 import 'package:ai_weather/features/home/domain/entities/current_weather_entity.dart';
+import 'package:ai_weather/features/home/domain/entities/forecast_weather_entity.dart';
 import 'package:ai_weather/features/home/presentation/controller/weather_cubit/weather_cubit.dart';
 import 'package:ai_weather/features/home/presentation/views/widgets/forcast_days_list.dart';
 import 'package:ai_weather/features/home/presentation/views/widgets/details_item.dart';
@@ -25,11 +27,15 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   String userName = "";
   WeatherEntity? weather;
   Color color = Colors.blue;
+  Map<String, dynamic>? result;
+  List<int> features = [];
+  String? predictionText;
   @override
   void initState() {
     super.initState();
     fetchWeatherData();
     getData();
+    // fetchPredictionData();
   }
 
   Future<void> fetchWeatherData() async {
@@ -38,6 +44,10 @@ class _HomeViewBodyState extends State<HomeViewBody> {
       position,
     );
   }
+
+  // Future<void> fetchPredictionData() async {
+  //   await sl<WeatherCubit>().getPrediction(features);
+  // }
 
   Future<void> getData() async {
     final userData = await sl<CacheHelper>().getUserData();
@@ -57,6 +67,8 @@ class _HomeViewBodyState extends State<HomeViewBody> {
         }
         if (state is GetWeatherSuccess) {
           weather = state.weatherEntity;
+          features = WeatherEntity.feature(state.weatherEntity);
+          sl<WeatherCubit>().getPrediction(features);
           color = BlocProvider.of<WeatherCubit>(context)
               .getThemeColor(weather?.condition ?? '');
         }
@@ -68,6 +80,23 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                       ?.forecast[BlocProvider.of<WeatherCubit>(context)
                           .selectedDayIndex]
                       .condition);
+          // features = ForecastEntity.feature(
+          //     weather!.forecast[sl<WeatherCubit>().selectedDayIndex]);
+          features = [0, 1, 1, 0, 0];
+          sl<WeatherCubit>().getPrediction(features);
+        }
+        if (state is GetPerdictionLoading) {}
+        if (state is GetPerdictionFailure) {
+          showSnackBar(context, message: state.message, color: Colors.red);
+        }
+        if (state is GetPerdictionSuccess) {
+          result = state.result;
+          print('Success');
+          print(result?['prediction']);
+
+          predictionText = result!['prediction'] == 0
+              ? "🌧️ The weather is bad, better stay inside!"
+              : "☀️ The weather is nice, you can go out!";
         }
       },
       builder: (context, state) {
@@ -167,6 +196,12 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                                           .truncate() ??
                                       0),
                         ],
+                      ),
+                      Text(
+                        predictionText ?? '',
+                        style: AppTextStyles.textStyle18.copyWith(
+                          color: kPrimaryColor.withAlpha(200),
+                        ),
                       ),
                     ],
                   ),

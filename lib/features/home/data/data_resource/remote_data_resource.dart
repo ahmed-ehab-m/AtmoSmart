@@ -9,6 +9,24 @@ class RemoteDataResource {
   RemoteDataResource(this.weatherApiService);
   final String apiKey = 'b349537498bf45eb92d174825251702';
   final String baseUrl = 'https://api.weatherapi.com/v1/';
+  final String flaskApiUrl = 'http://10.0.2.2:5001/predict';
+  Future<Map<String, dynamic>> getPredictions(
+      {required List<int> features}) async {
+    try {
+      final url = Uri.parse(flaskApiUrl).toString();
+      Map<String, dynamic> body = {'features': features};
+      final response = await Dio().post(url, data: body);
+      print('remote data source  response is $response');
+      print(response.data);
+
+      return response.data;
+    } on DioException catch (e) {
+      throw _handleDioError(e);
+    } on Exception catch (e) {
+      throw e;
+    }
+  }
+
   Future<WeatherModel> getWeather({required String location}) async {
     try {
       Response response = await weatherApiService.getWeather(

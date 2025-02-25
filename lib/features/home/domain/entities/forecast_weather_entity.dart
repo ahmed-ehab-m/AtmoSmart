@@ -19,4 +19,22 @@ class ForecastEntity {
     required this.condition,
     required String date,
   });
+  static List<int> feature(ForecastEntity entity) {
+    List<int> features = [];
+    //////////Rainy////////////
+    entity.rainChance > 0.5 ? features.add(1) : features.add(0);
+    ///////////Sunny////////////
+    entity.uv > 5 || entity.condition == 'Sunny'
+        ? features.add(1)
+        : features.add(0);
+    /////////////hot/////////////
+    entity.averageTemp > 30 ? features.add(1) : features.add(0);
+    /////////////mild/////////////
+    entity.averageTemp > 20 && entity.averageTemp < 30
+        ? features.add(1)
+        : features.add(0);
+    ///////humditiy////////////////
+    entity.averageHumidity > 50 ? features.add(1) : features.add(0);
+    return features;
+  }
 }

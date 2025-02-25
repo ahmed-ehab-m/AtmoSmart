@@ -2,6 +2,7 @@ import 'package:ai_weather/core/app_router/app_router.dart';
 import 'package:ai_weather/core/di/dependency_injection.dart';
 import 'package:ai_weather/features/auth/presentation/controller/auth_cubit/auth_cubit.dart';
 import 'package:ai_weather/features/home/presentation/controller/weather_cubit/weather_cubit.dart';
+import 'package:ai_weather/features/home/presentation/views/home_view.dart';
 import 'package:ai_weather/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +32,13 @@ class AIWeather extends StatelessWidget {
           create: (context) => sl<WeatherCubit>(),
         ),
       ],
-      child: MaterialApp.router(
+      // child: MaterialApp.router(
+      //   debugShowCheckedModeBanner: false,
+      //   routerConfig: AppRouter.router,
+      // ),
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        routerConfig: AppRouter.router,
+        home: HomeView(),
       ),
     );
   }
