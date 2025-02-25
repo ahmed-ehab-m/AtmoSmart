@@ -1,6 +1,6 @@
 # GeoWeatherFeature Feature Documentation
 ## overview/
-    this feature manages fetching  current and forecast weather based on the user's location
+    this feature manages fetching  current , forecast weather based on the user's location and predict status of weather (for more Details Check /docs/get_prediction.md)
 
 ## Architecture (CLEAN ARCH and Follows MVVM Pattern)/
 ## core
