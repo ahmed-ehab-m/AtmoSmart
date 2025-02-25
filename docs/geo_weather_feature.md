@@ -14,13 +14,15 @@
 ## Lib
 ###  /Data Layer 
 ### Manages Authentication Data
- `RemoteDataSource` → Handles retrieving weather data from the Weather API
+ `RemoteDataSource` → Handles retrieving and sending weather data to/from the Weather API 
  `RemoteRepositoryImpl` → Implements `WeatherRepository`.
 
 ###  /Domain Layer
 ### Contains BusinessLogic 
  `WeatherRepository` => Abstract Repositry Interface
- `GetWeatherCase` → Handles retrieving weather data from the Weather API
+ `GetWeatherUseCase` → Handles retrieving weather data from the Weather API
+ `GetPredictionUseCase` → Handles predicting weather status
+
 
 ### /Presentation Layer**
 ### Handels UI , STateManagement

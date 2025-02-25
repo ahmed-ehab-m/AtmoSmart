@@ -6,8 +6,8 @@ import 'package:ai_weather/core/location/get_location.dart';
 import 'package:ai_weather/core/styles/text_styles.dart';
 import 'package:ai_weather/core/utils/constants.dart';
 import 'package:ai_weather/core/utils/strings.dart';
+import 'package:ai_weather/features/home/domain/entities/base_weather_entity.dart';
 import 'package:ai_weather/features/home/domain/entities/current_weather_entity.dart';
-import 'package:ai_weather/features/home/domain/entities/forecast_weather_entity.dart';
 import 'package:ai_weather/features/home/presentation/controller/weather_cubit/weather_cubit.dart';
 import 'package:ai_weather/features/home/presentation/views/widgets/forcast_days_list.dart';
 import 'package:ai_weather/features/home/presentation/views/widgets/details_item.dart';
@@ -65,7 +65,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
         if (state is GetWeatherSuccess) {
           weather = state.weatherEntity;
 
-          features = ForecastEntity.feature(weather!.forecast[0]);
+          features = BaseWeatherEntity.feature(weather!);
           weatherCubit.getPrediction(features);
           color = weatherCubit.getThemeColor(weather?.condition ?? '');
         }
@@ -73,8 +73,10 @@ class _HomeViewBodyState extends State<HomeViewBody> {
           color = weatherCubit.getThemeColor(weatherCubit.selectedDayIndex == 0
               ? weather?.condition ?? ''
               : weather?.forecast[weatherCubit.selectedDayIndex].condition);
-          features = ForecastEntity.feature(
-              weather!.forecast[weatherCubit.selectedDayIndex]);
+          features = BaseWeatherEntity.feature(
+              weatherCubit.selectedDayIndex == 0
+                  ? weather!
+                  : weather!.forecast[weatherCubit.selectedDayIndex]);
           sl<WeatherCubit>().getPrediction(features);
         }
         if (state is GetPerdictionLoading) {}
@@ -83,7 +85,6 @@ class _HomeViewBodyState extends State<HomeViewBody> {
         }
         if (state is GetPerdictionSuccess) {
           result = state.result;
-
           predictionText = result!['prediction'][0] == 0
               ? AppStrings.badWeather
               : AppStrings.goodWeather;
