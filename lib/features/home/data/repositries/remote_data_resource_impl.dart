@@ -16,7 +16,6 @@ class WeatherRepositryImpl implements WeatherRepositry {
     try {
       Map<String, dynamic> result =
           await remoteDataResource.getPredictions(features: features);
-      print('impl result is $result');
       return Right(result);
     } on ServerException catch (e) {
       return Left(ServerFailure(e.message));

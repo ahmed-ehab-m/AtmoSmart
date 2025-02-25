@@ -18,7 +18,6 @@ class WeatherCubit extends Cubit<WeatherState> {
   ) async {
     emit(GetPerdictionLoading());
     final failureOrWeather = await getPredictionUseCase(features: features);
-    print(failureOrWeather);
     failureOrWeather.fold(
         (failure) => emit(GetPerdictionFailure(message: failure.message)),
         (result) => emit(GetPerdictionSuccess(result: result)));

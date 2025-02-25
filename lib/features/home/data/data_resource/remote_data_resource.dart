@@ -16,14 +16,12 @@ class RemoteDataResource {
       final url = Uri.parse(flaskApiUrl).toString();
       Map<String, dynamic> body = {'features': features};
       final response = await Dio().post(url, data: body);
-      print('remote data source  response is $response');
-      print(response.data);
 
       return response.data;
     } on DioException catch (e) {
       throw _handleDioError(e);
     } on Exception catch (e) {
-      throw e;
+      throw ServerException(e.toString());
     }
   }
 
