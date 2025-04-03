@@ -22,9 +22,9 @@ python -m venv venv
 venv\Scripts\activate.bat
 Set-ExecutionPolicy Unrestricted -Scope Process
 venv\Scripts\Activate.ps1
-
-
+```
 #### 🖥️ **Mac**
+
 python3 -m venv venv
 source venv/bin/activate
 
