@@ -13,34 +13,35 @@
 
 
 ## Setting Up The Local Server
-1-Run these commands in the terminal
-
-### windows
+Follow these steps to set up the local server:
+Run These Comands in your Terminal
+### 1️⃣ Create a Virtual Environment
+#### 🖥️ **Windows**
+```sh
 python -m venv venv
 venv\Scripts\activate.bat
 Set-ExecutionPolicy Unrestricted -Scope Process
 venv\Scripts\Activate.ps1
 
-### Mac
+
+#### 🖥️ **Mac**
 python3 -m venv venv
 source venv/bin/activate
-/////////////////////
 
+#### 2️⃣ Install the required packages:
 pip install Flask
-
-pip show Flask
-
 pip install numpy
-
 pip install scikit-learn==1.3.2
 
-python app.py
+#### 3️⃣ Run the server:
 
 python app.py // to host the AI model and access it through your local host on port 5001.
 
-2- check if your file sucess host success or not by try this IP ('http://127.0.0.1:5001') in your browser.
+#### 4️⃣ Check if the server is running:
+http://127.0.0.1:5001
 
-3- Send your list to the model using POST method use this IP : ('http://10.0.2.2:5001/predict') in your flutter app.
+#### 5️⃣ Send data to the model using the POST method:
+http://10.0.2.2:5001/predict
 
 ## Main packages used
 
