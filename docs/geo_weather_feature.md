@@ -27,3 +27,6 @@
 ### /Presentation Layer**
 ### Handels UI , STateManagement
 - `WeatherCubit` → Manages getting Weather state.
+
+## Demo Video
+https://github.com/user-attachments/assets/d7d8460a-6578-47ac-86b3-64ff265f975c
