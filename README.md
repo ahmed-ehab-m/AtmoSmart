@@ -15,7 +15,7 @@
 ## Setting Up The Local Server
 Follow these steps to set up the local server:
 Run These Comands in your Terminal
-#### 1️⃣ Create a Virtual Environment
+### 1️⃣ Create a Virtual Environment
 #### 🖥️ **Windows**
 ```sh
 python -m venv venv
@@ -28,21 +28,21 @@ venv\Scripts\Activate.ps1
 python3 -m venv venv
 source venv/bin/activate
 ```
-#### 2️⃣ Install the required packages:
+### 2️⃣ Install the required packages:
 ```sh
 pip install Flask
 pip install numpy
 pip install scikit-learn==1.3.2
 ```
-#### 3️⃣ Run the server:
+### 3️⃣ Run the server:
 ```sh
 python app.py // to host the AI model and access it through your local host on port 5001.
 ```
-#### 4️⃣ Check if the server is running:
+### 4️⃣ Check if the server is running:
 ```sh
 http://127.0.0.1:5001
 ```
-#### 5️⃣ Send data to the model using the POST method:
+### 5️⃣ Send data to the model using the POST method:
 ```sh
 http://10.0.2.2:5001/predict
 ```
