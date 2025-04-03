@@ -5,7 +5,7 @@
 🤖 The app integrates AI-powered predictions to help users decide whether it's a good time to go out based on the expected weather conditions, making daily planning easier and more accurate!
 
 ## Table of contents
-- ### [Setting Up The Local Server =>](#setting)up_the_local_server)
+- ### [Setting Up The Local Server =>](#setting_up_the_local_server)
 - ### [main packages used =>](#main-packages-used)
 - ### [Folder structure =>](#folder-structure)
 - ### [Screenshots =>](#screenshots)
@@ -25,6 +25,7 @@ venv\Scripts\Activate.ps1
 python3 -m venv venv
 source venv/bin/activate
 /////////////////////
+
 pip install Flask
 
 pip show Flask
@@ -102,24 +103,16 @@ presentation
 ├── auth
 ├── home
 ```
-
+## Screenshots
+Here are some screeshots for the application:
+![Screenshot (65)](https://github.com/user-attachments/assets/f9cda08c-b476-4a68-9a5b-a6ec7d759586)
+![Screenshot (66)](https://github.com/user-attachments/assets/54b0dc3a-8884-49bc-bcbe-9493629a8c8a)
+![Screenshot (67)](https://github.com/user-attachments/assets/52d21d88-8eb9-4253-8ca8-fcf0225ff73a)
+![Screenshot (68)](https://github.com/user-attachments/assets/a147bd5a-3c9b-450b-b497-f153f74cb1c1)
+![Screenshot (69)](https://github.com/user-attachments/assets/46f29452-393d-4d63-9c1d-38f3574f9c6e)
+![Screenshot (70)](https://github.com/user-attachments/assets/56a6a58e-b7ac-4ed2-bc4f-d4a283689737)
+![Screenshot (71)](https://github.com/user-attachments/assets/9ee72e6f-76ae-4ed0-91bf-1328156f107e)
+![Screenshot (72)](https://github.com/user-attachments/assets/42cdb4ab-ad4a-4b97-87e0-88962fbc6029)
 
 ## Demo Video
 https://github.com/user-attachments/assets/9ddd4164-3d5c-4c98-a830-40814e2d52ba
-
-# GetPrediction Demo
-https://github.com/user-attachments/assets/3aa79804-f9d4-40ed-bec2-0ec52deddde7
-# GeoWeather feature Demo
-
-
-https://github.com/user-attachments/assets/d7d8460a-6578-47ac-86b3-64ff265f975c
-
-
-# AuthFeature Demo
-https://github.com/user-attachments/assets/411a344c-b09c-4c5a-b057-73c268ecd726
-
-
-
-
-
-
