@@ -75,13 +75,18 @@ booking_app
 └── test
 ```
 Here is the folder structure we have been using in this project:
+
+📂 Docs Folder
+The docs folder contains detailed documentation for each feature in the application.
+If you want to understand how authentication, weather data fetching, and AI predictions work, check out the following files:
 ```
 docs
-├── auth_feature.md
-├── geo_weather_feature.md
-└── get_prediction.md
+├── auth_feature.md          # Detailed explanation of the authentication system
+├── geo_weather_feature.md   # How the app fetches weather data based on the user's location
+└── get_prediction.md        # How the AI model predicts and suggests the best time to go out
 
-lib
+
+📂 Lib Folder
 
 ├── core
 ├── featuers
