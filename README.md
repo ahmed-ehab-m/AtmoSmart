@@ -5,7 +5,7 @@
 🤖 The app integrates AI-powered predictions to help users decide whether it's a good time to go out based on the expected weather conditions, making daily planning easier and more accurate!
 
 ## Table of contents
-- ### [Setting Up The Local Server =>](#setting_up_the_local_server)
+- ### [Setting Up The Local Server =>](#setting-up-the-local-server)
 - ### [main packages used =>](#main-packages-used)
 - ### [Folder structure =>](#folder-structure)
 - ### [Screenshots =>](#screenshots)
