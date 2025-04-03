@@ -84,10 +84,10 @@ docs
 ├── auth_feature.md          # Detailed explanation of the authentication system
 ├── geo_weather_feature.md   # How the app fetches weather data based on the user's location
 └── get_prediction.md        # How the AI model predicts and suggests the best time to go out
-
+```
 
 📂 Lib Folder
-
+```
 ├── core
 ├── featuers
 └── main.dart
