@@ -69,7 +69,6 @@ ai_weather
 ├── android
 ├── assets
 ├── build
-├── core
 ├── docs
 ├── ios
 ├── lib
