@@ -69,11 +69,45 @@ ai_weather
 ├── assets
 ├── build
 ├── core
+│   ├── app_router
+│   ├── di
+│   ├── error
+│   ├── helper
+│   ├── location
+│   ├── network
+│   ├── styles
+│   └── utils
 ├── docs
+│   ├── auth_feature.md          # Detailed explanation of the authentication system
+│   ├── geo_weather_feature.md   # How the app fetches weather data based on the user's location
+│   └── get_prediction.md        # How the AI model predicts and suggests the best time to go out
 ├── ios
 ├── lib
+│   ├── core
+│   │   ├── app_router
+│   │   ├── di
+│   │   ├── error
+│   │   ├── helper
+│   │   ├── location
+│   │   ├── network
+│   │   ├── styles
+│   │   └── utils
+│   ├── features
+│   │   ├── presentation
+│   │   │   ├── auth
+│   │   │   └── home
+│   │   ├── data
+│   │   │   ├── models
+│   │   │   ├── repository
+│   │   │   └── source
+│   │   │       ├── local
+│   │   │       └── remote
+│   │   └── domain
+│   │       ├── entities
+│   │       ├── repository
+│   │       └── usecases
+│   └── main.dart
 └── test
-```
 Here is the folder structure we have been using in this project:
 
 📂 docs Folder
@@ -82,32 +116,49 @@ The docs folder contains detailed documentation for each feature in the applicat
 If you want to understand how authentication, weather data fetching, and AI predictions work, check out the following files:
 ```
 ├── docs
+
 │   ├── auth_feature.md          # Detailed explanation of the authentication system
+
 │   ├── geo_weather_feature.md   # How the app fetches weather data based on the user's location
+
 │   └── get_prediction.md        # How the AI model predicts and suggests the best time to go out
 ```
 
 📂 lib Folder
 ```
 ├── lib
+
 │   ├── core
+
 │   ├── features
+
 │   │   ├── presentation
+
 │   │   │   ├── auth
+
 │   │   │   └── home
+
 │   └── main.dart
 ```
 ### core
 This folder contains all services and tools related to the application
 ```
 ├── core
+
 │   ├── app_router
+
 │   ├── di
+
 │   ├── error
+
 │   ├── helper
+
 │   ├── location
+
 │   ├── network
+
 │   ├── styles
+
 │   └── utils                
 ```
 ### features
