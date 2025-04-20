@@ -64,12 +64,11 @@ http://10.0.2.2:5001/predict
 ## Folder structure
 We have applied clean archeticture ,MVVM (Feature Based)  concept and here is the basic folder structure:
 
-core folder structure that flutter provides:
-```
 ai_weather
 ├── android
 ├── assets
 ├── core
+├── docs
 ├── build
 ├── ios
 ├── lib
@@ -90,7 +89,6 @@ docs
 
 📂 lib Folder
 ```
-├── core
 ├── featuers
 └── main.dart
 ```
