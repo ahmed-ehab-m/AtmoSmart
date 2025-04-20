@@ -65,6 +65,7 @@ http://10.0.2.2:5001/predict
 We have applied clean archeticture ,MVVM (Feature Based)  concept and here is the basic folder structure:
 
 ai_weather
+
 ├── android
 ├── assets
 ├── core
@@ -96,6 +97,7 @@ docs
 This folder contains all services and tools related to the application
 ```
 core
+
 ├── app_router
 ├── di                      
 ├── error
