@@ -66,9 +66,10 @@ We have applied clean archeticture ,MVVM (Feature Based)  concept and here is th
 
 core folder structure that flutter provides:
 ```
-booking_app
+ai_weather
 ├── android
 ├── assets
+├── core
 ├── build
 ├── ios
 ├── lib
