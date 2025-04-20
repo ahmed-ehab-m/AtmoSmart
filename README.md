@@ -65,12 +65,11 @@ http://10.0.2.2:5001/predict
 We have applied clean archeticture ,MVVM (Feature Based)  concept and here is the basic folder structure:
 
 ai_weather
-
 ├── android
 ├── assets
+├── build
 ├── core
 ├── docs
-├── build
 ├── ios
 ├── lib
 └── test
@@ -82,30 +81,34 @@ Here is the folder structure we have been using in this project:
 The docs folder contains detailed documentation for each feature in the application.
 If you want to understand how authentication, weather data fetching, and AI predictions work, check out the following files:
 ```
-docs
-├── auth_feature.md          # Detailed explanation of the authentication system
-├── geo_weather_feature.md   # How the app fetches weather data based on the user's location
-└── get_prediction.md        # How the AI model predicts and suggests the best time to go out
+├── docs
+│   ├── auth_feature.md          # Detailed explanation of the authentication system
+│   ├── geo_weather_feature.md   # How the app fetches weather data based on the user's location
+│   └── get_prediction.md        # How the AI model predicts and suggests the best time to go out
 ```
 
 📂 lib Folder
 ```
-├── featuers
-└── main.dart
+├── lib
+│   ├── core
+│   ├── features
+│   │   ├── presentation
+│   │   │   ├── auth
+│   │   │   └── home
+│   └── main.dart
 ```
 ### core
 This folder contains all services and tools related to the application
 ```
-core
-
-├── app_router
-├── di                      
-├── error
-├── helper
-├── location       
-├── network                 
-├── styles               
-└── utils                   
+├── core
+│   ├── app_router
+│   ├── di
+│   ├── error
+│   ├── helper
+│   ├── location
+│   ├── network
+│   ├── styles
+│   └── utils                
 ```
 ### features
 This folder containes everything related to the screen of the application and the business logic of the application specificly state management.
