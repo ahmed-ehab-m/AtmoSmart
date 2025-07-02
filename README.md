@@ -119,6 +119,7 @@ presentation
 
 ## Screenshots
 Here are some screeshots for the application:
+
 ![Screenshot (65)](https://github.com/user-attachments/assets/f9cda08c-b476-4a68-9a5b-a6ec7d759586)
 ![Screenshot (66)](https://github.com/user-attachments/assets/54b0dc3a-8884-49bc-bcbe-9493629a8c8a)
 ![Screenshot (67)](https://github.com/user-attachments/assets/52d21d88-8eb9-4253-8ca8-fcf0225ff73a)
