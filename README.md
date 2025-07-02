@@ -1,4 +1,3 @@
-![WhatsApp Image 2025-07-03 at 1 16 17 AM (3)-portrait](https://github.com/user-attachments/assets/b55ee216-c084-4e40-bbd8-e609f2c5cb7f)
 # ai_weather
 🌦 AI Weather App is a smart application that provides real-time weather updates, including temperature, humidity, UV index, and rain probability, along with a 3-day weather forecast.
 
@@ -120,7 +119,14 @@ presentation
 
 ## Screenshots
 Here are some screeshots for the application:
-
+![Screenshot (65)](https://github.com/user-attachments/assets/f9cda08c-b476-4a68-9a5b-a6ec7d759586)
+![Screenshot (66)](https://github.com/user-attachments/assets/54b0dc3a-8884-49bc-bcbe-9493629a8c8a)
+![Screenshot (67)](https://github.com/user-attachments/assets/52d21d88-8eb9-4253-8ca8-fcf0225ff73a)
+![Screenshot (68)](https://github.com/user-attachments/assets/a147bd5a-3c9b-450b-b497-f153f74cb1c1)
+![Screenshot (69)](https://github.com/user-attachments/assets/46f29452-393d-4d63-9c1d-38f3574f9c6e)
+![Screenshot (70)](https://github.com/user-attachments/assets/56a6a58e-b7ac-4ed2-bc4f-d4a283689737)
+![Screenshot (71)](https://github.com/user-attachments/assets/9ee72e6f-76ae-4ed0-91bf-1328156f107e)
+![Screenshot (72)](https://github.com/user-attachments/assets/42cdb4ab-ad4a-4b97-87e0-88962fbc6029)
 
 
 
